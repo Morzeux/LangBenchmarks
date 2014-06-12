@@ -1,7 +1,7 @@
 '''
 Created on 8.6.2014
 
-@author: Morzeux
+@author: Stefan Smihla
 '''
 
 import configparser
@@ -15,39 +15,45 @@ if platform.system() == 'Windows':
 SOURCE_DIR = 'sources'
 
 def load_languages(config_file):
+    """ Loads languages from configuration file. """
     config = configparser.ConfigParser()
     config.read(config_file)
 
     languages = []
     for lang in config.sections():
-        LangClass = globals().get(config.get(lang, 'class'))
-        languages.append(LangClass(config[lang]))
+        lang_class = globals().get(config.get(lang, 'class'))
+        languages.append(lang_class(config[lang]))
 
     return languages
 
 class Language(object):
+    """ Abstract language class. """
 
     _stdout = ''
 
     @classmethod
     def set_output(cls, stdout):
+        """ Sets output value. """
         cls._stdout = stdout
-        
+
     @classmethod
     def get_stdout(cls):
+        """ Returns output value. """
         return cls._stdout
 
     @classmethod
     def run_process(cls, command):
+        """ Run process and saves it output. """
         cls.set_output(subprocess.Popen(command,
-                                universal_newlines=True,
-                                stderr=subprocess.STDOUT,
-                                stdout=subprocess.PIPE,
-                                shell=True).stdout.read().strip())
+                                        universal_newlines=True,
+                                        stderr=subprocess.STDOUT,
+                                        stdout=subprocess.PIPE,
+                                        shell=True).stdout.read().strip())
         return cls.get_stdout()
 
     @classmethod
     def safe_path(cls, path):
+        """ Convert path to safe path. """
         path = os.path.normpath(path)
         if platform.system() == 'Windows':
             return win32api.GetShortPathName(path)
@@ -63,83 +69,114 @@ class Language(object):
 
         try:
             self.version = self.check_version()
-        except:
+        except (AttributeError, IndexError, ValueError):
             self.version = None
 
     def check_version(self, param='--version'):
-        return self.run_process('%s %s' % (self.path, param)).splitlines()[0].strip()
-    
+        """ Checks version of compiler. """
+        return self.run_process('%s %s' % (self.path,
+                                           param)).splitlines()[0].strip()
+
     def evaluate(self, args):
+        """ Evaluates script. """
         pass
-    
+
     def evaluate_with_timeout(self, args, timeout=None):
+        """ Kills process after timeout. """
         self.set_output(None)
         evaluation = Thread(target=self.evaluate, args=(args, ))
         evaluation.start()
         evaluation.join(timeout)
-        return self.get_stdout() if self.get_stdout() else '%s:\nKilled' % (self.name) 
+        return self.get_stdout() if self.get_stdout() \
+            else '%s:\nKilled' % (self.name)
 
-class C_Language(Language):
-    
+class CLanguage(Language):
+    """ C Language class. """
+
     def compile(self):
-        result = self.run_process('%s %s %s %s' % (self.path, self.source, self.config, self.output))
+        """ Compiles C file to binary. """
+        result = self.run_process('%s %s %s %s' % (self.path, self.source,
+                                                   self.config, self.output))
         return 'OK' if not result else 'FAIL: %s' % result
-    
+
     def evaluate(self, args):
+        """ Evaluates script. """
         return self.run_process('%s %s' % (self.output, args))
 
-class CS_Language(Language):
-    
-    def check_version(self):
-        return super(CS_Language, self).check_version('-help')
-    
+class CSLanguage(Language):
+    """ C# Language class. """
+
+    def check_version(self, param='-help'):
+        """ Checks C# version. """
+        return super(CSLanguage, self).check_version(param)
+
     def compile(self):
-        result = self.run_process('%s %s%s %s' % (self.path, self.config, self.output, self.source))
-        return 'OK' if len(result.splitlines()) == 4 else 'FAIL: %s' % result   
-    
+        """ Compiles CS file to binary. """
+        result = self.run_process('%s %s%s %s' % (self.path, self.config,
+                                                  self.output, self.source))
+        return 'OK' if len(result.splitlines()) == 4 else 'FAIL: %s' % result
+
     def evaluate(self, args):
+        """ Evaluates script. """
         return self.run_process('%s %s' % (self.output, args))
 
-class Java_Language(Language):
+class JavaLanguage(Language):
+    """ Java Language class. """
 
-    def check_version(self):
-        return super(Java_Language, self).check_version('-version')
-    
+    def check_version(self, param='-version'):
+        """ Checks Java version. """
+        return super(JavaLanguage, self).check_version(param)
+
     def compile(self):
-        result = self.run_process('%s %s %s' % (self.path, self.source, self.config))
+        """ Compiles Java file to binary. """
+        result = self.run_process('%s %s %s' % (self.path, self.source,
+                                                self.config))
         return 'OK' if not result else 'FAIL:\n%s' % result
-    
+
     def evaluate(self, args):
+        """ Evaluates script. """
         path = os.path.join(os.path.split(self.path)[0], 'java')
         output = '.'.join(self.output.split('.')[:-1])
         return self.run_process('%s %s %s' % (path, output, args))
-    
-class JavaScript_Language(Language):
-    
-    def evaluate(self, args):
-        return self.run_process('%s %s %s' % (self.path, self.source, args))
-    
-class PHP_Language(Language):
-    
-    def evaluate(self, args):
-        return self.run_process('%s %s %s' % (self.path, self.source, args))
 
-class Ruby_Language(Language):
-    
-    def evaluate(self, args):
-        return self.run_process('%s %s %s' % (self.path, self.source, args))
-
-class Python_Language(Language):
-    
-    def evaluate(self, args):
-        return self.run_process('%s %s %s' % (self.path, self.source, args))
-
-class Prolog_Language(Language):
+class JavaScriptLanguage(Language):
+    """ JavaScript Language class. """
 
     def evaluate(self, args):
+        """ Evaluates script. """
+        return self.run_process('%s %s %s' % (self.path, self.source, args))
+
+class PHPLanguage(Language):
+    """ PHP Language class. """
+
+    def evaluate(self, args):
+        """ Evaluates script. """
+        return self.run_process('%s %s %s' % (self.path, self.source, args))
+
+class RubyLanguage(Language):
+    """ Ruby Language class. """
+
+    def evaluate(self, args):
+        """ Evaluates script. """
+        return self.run_process('%s %s %s' % (self.path, self.source, args))
+
+class PythonLanguage(Language):
+    """ Python Language class. """
+
+    def evaluate(self, args):
+        """ Evaluates script. """
+        return self.run_process('%s %s %s' % (self.path, self.source, args))
+
+class PrologLanguage(Language):
+    """ Prolog Language class. """
+
+    def evaluate(self, args):
+        """ Evaluates script. """
         return self.run_process('%s %s -- %s' % (self.path, self.source, args))
-    
-class CLisp_Language(Language):
-    
+
+class CLispLanguage(Language):
+    """ Common Lisp Language class. """
+
     def evaluate(self, args):
+        """ Evaluates script. """
         return self.run_process('%s %s %s' % (self.path, self.source, args))

@@ -17,18 +17,18 @@ timeMeasure(FUNC, ARGS, TIME) :-
 	statistics(runtime, [_, T1]),
 	call(S),
 	statistics(runtime, [_, T2]),
-	TIME is (T2 - T1) / 1000.
+	TIME is abs((T2 - T1) / 1000).
 
 testHanoi(N, D) :-
 	D1 is D - 1,
 	timeMeasure(hanoi, [N, 1, D1, D], X),
 	write('Hanoi test passed in '),
-	write(X), write('s.'), nl.
+	format('~3f', [X]), write('s.'), nl.
 
 testCycle(N) :-
 	timeMeasure(cycle, [N], X),
 	write('Cycle test passed in '),
-	write(X), write('s.'), nl.
+	format('~3f', [X]), write('s.'), nl.
 
 args([AC1, AC2, AC3]) :-
 	current_prolog_flag(argv, [A1, A2, A3]),
