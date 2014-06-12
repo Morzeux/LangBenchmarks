@@ -1,3 +1,4 @@
 .project
 .pydevproject
 desktop.ini
+evaluator/__pycache__
