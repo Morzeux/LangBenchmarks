@@ -7,7 +7,6 @@ Created on 8.6.2014
 import platform
 import psutil
 import math
-import os
 import re
 
 class Evaluator():
@@ -135,6 +134,5 @@ class Evaluator():
         print('*' * 60)
         print('Cleaning up...', end=' ')
         for lang in languages:
-            if hasattr(lang, 'output') and os.path.isfile(lang.output):
-                os.remove(lang.output)
+            lang.clean_up()
         print('OK\n')

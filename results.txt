@@ -2,6 +2,7 @@ Available compilers:
 ************************************************************
 C compiler: gcc.exe (GCC) 4.8.1
 C# compiler: Microsoft (R) Visual C# Compiler version 4.0.30319.18408
+Pascal compiler: Free Pascal Compiler version 2.6.4 [2014/03/06] for i386
 Java compiler: javac 1.8.0_05
 JavaScript (node.js) compiler: v0.10.28
 PHP compiler: PHP 5.5.13 (cli) (built: May 28 2014 09:50:06)
@@ -21,154 +22,42 @@ Compiling results:
 ************************************************************
 Compiling C... OK
 Compiling C#... OK
+Compiling Pascal... OK
 Compiling Java... OK
 
 Test results (5 evaluations):
 ************************************************************
-1. Hanoi(disks=10, sticks=6); Cycles(iters=1000)
+1. Hanoi(disks=25, sticks=6); Cycles(iters=100000000)
   C:
-    Hanoi: 0.000s (SD 0.00%)
-    Cycles: 0.000s (SD 0.00%)
+    Hanoi: 0.352s (SD 2.39%)
+    Cycles: 0.291s (SD 1.80%)
   C#:
-    Hanoi: 0.000s (SD 0.00%)
-    Cycles: 0.000s (SD 0.00%)
+    Hanoi: 0.338s (SD 2.21%)
+    Cycles: 0.128s (SD 5.85%)
+  Pascal:
+    Hanoi: 0.407s (SD 11.03%)
+    Cycles: 0.295s (SD 2.28%)
   Java:
-    Hanoi: 0.000s (SD 0.00%)
-    Cycles: 0.000s (SD 0.00%)
+    Hanoi: 0.184s (SD 10.83%)
+    Cycles: 0.165s (SD 1.87%)
   JavaScript:
-    Hanoi: 0.006s (SD 122.47%)
-    Cycles: 0.000s (SD 0.00%)
+    Hanoi: 0.571s (SD 1.72%)
+    Cycles: 0.126s (SD 0.39%)
   PHP:
-    Hanoi: 0.003s (SD 200.00%)
-    Cycles: 0.000s (SD 0.00%)
+    Hanoi: 42.302s (SD 11.12%)
+    Cycles: 6.060s (SD 34.96%)
   Ruby:
-    Hanoi: 0.000s (SD 0.00%)
-    Cycles: 0.000s (SD 0.00%)
+    Hanoi: 16.841s (SD 15.52%)
+    Cycles: 8.871s (SD 25.81%)
   Python:
-    Hanoi: 0.003s (SD 200.00%)
-    Cycles: 0.000s (SD 0.00%)
+    Hanoi: 53.864s (SD 28.44%)
+    Cycles: 27.249s (SD 37.88%)
   Prolog:
-    Hanoi: 0.006s (SD 122.47%)
-    Cycles: 0.000s (SD 0.00%)
+    Hanoi: 17.638s (SD 17.45%)
+    Cycles: 13.862s (SD 16.46%)
   Common Lisp:
-    Hanoi: 0.000s (SD 0.00%)
-    Cycles: 0.000s (SD 0.00%)
-
-2. Hanoi(disks=15, sticks=6); Cycles(iters=100000)
-  C:
-    Hanoi: 0.000s (SD 0.00%)
-    Cycles: 0.000s (SD 0.00%)
-  C#:
-    Hanoi: 0.000s (SD 0.00%)
-    Cycles: 0.000s (SD 0.00%)
-  Java:
-    Hanoi: 0.000s (SD 0.00%)
-    Cycles: 0.000s (SD 0.00%)
-  JavaScript:
-    Hanoi: 0.000s (SD 0.00%)
-    Cycles: 0.003s (SD 200.00%)
-  PHP:
-    Hanoi: 0.034s (SD 18.71%)
-    Cycles: 0.006s (SD 122.47%)
-  Ruby:
-    Hanoi: 0.003s (SD 200.00%)
-    Cycles: 0.000s (SD 0.00%)
-  Python:
-    Hanoi: 0.028s (SD 21.43%)
-    Cycles: 0.013s (SD 50.00%)
-  Prolog:
-    Hanoi: 0.009s (SD 72.96%)
-    Cycles: 0.003s (SD 200.00%)
-  Common Lisp:
-    Hanoi: 0.065s (SD 9.82%)
-    Cycles: 0.078s (SD 0.00%)
-
-3. Hanoi(disks=20, sticks=6); Cycles(iters=10000000)
-  C:
-    Hanoi: 0.012s (SD 50.00%)
-    Cycles: 0.022s (SD 33.40%)
-  C#:
-    Hanoi: 0.010s (SD 0.00%)
-    Cycles: 0.010s (SD 0.00%)
-  Java:
-    Hanoi: 0.006s (SD 122.58%)
-    Cycles: 0.016s (SD 2.53%)
-  JavaScript:
-    Hanoi: 0.022s (SD 34.99%)
-    Cycles: 0.010s (SD 81.65%)
-  PHP:
-    Hanoi: 1.145s (SD 0.64%)
-    Cycles: 0.400s (SD 1.96%)
-  Ruby:
-    Hanoi: 0.224s (SD 3.49%)
-    Cycles: 0.322s (SD 2.44%)
-  Python:
-    Hanoi: 0.945s (SD 1.32%)
-    Cycles: 1.379s (SD 3.16%)
-  Prolog:
-    Hanoi: 0.437s (SD 9.96%)
-    Cycles: 0.562s (SD 0.07%)
-  Common Lisp:
-    Hanoi: 2.018s (SD 0.39%)
-    Cycles: 7.373s (SD 0.31%)
-
-4. Hanoi(disks=25, sticks=6); Cycles(iters=100000000)
-  C:
-    Hanoi: 0.337s (SD 2.33%)
-    Cycles: 0.281s (SD 0.00%)
-  C#:
-    Hanoi: 0.320s (SD 3.42%)
-    Cycles: 0.120s (SD 0.00%)
-  Java:
-    Hanoi: 0.159s (SD 4.02%)
-    Cycles: 0.162s (SD 4.54%)
-  JavaScript:
-    Hanoi: 0.543s (SD 1.10%)
-    Cycles: 0.125s (SD 0.00%)
-  PHP:
-    Hanoi: 36.632s (SD 1.09%)
-    Cycles: 4.003s (SD 0.40%)
-  Ruby:
-    Hanoi: 7.432s (SD 0.10%)
-    Cycles: 3.204s (SD 0.24%)
-  Python:
-    Hanoi: 29.809s (SD 0.81%)
-    Cycles: 13.734s (SD 0.56%)
-  Prolog:
-    Hanoi: 14.209s (SD 1.04%)
-    Cycles: 11.741s (SD 1.39%)
-  Common Lisp:
-    Hanoi: 64.194s (SD 0.05%)
-    Cycles: 99.054s (SD 1.11%)
-
-5. Hanoi(disks=30, sticks=6); Cycles(iters=1000000000)
-  C:
-    Hanoi: 10.773s (SD 0.12%)
-    Cycles: 2.777s (SD 0.35%)
-  C#:
-    Hanoi: 10.126s (SD 0.71%)
-    Cycles: 1.200s (SD 1.05%)
-  Java:
-    Hanoi: 4.630s (SD 0.13%)
-    Cycles: 1.601s (SD 0.79%)
-  JavaScript:
-    Hanoi: 18.109s (SD 5.13%)
-    Cycles: 1.454s (SD 34.77%)
-  PHP:
-    Hanoi: Killed
-    Cycles: Killed
-  Ruby:
-    Hanoi: Killed
-    Cycles: Killed
-  Python:
-    Hanoi: Killed
-    Cycles: Killed
-  Prolog:
-    Hanoi: Killed
-    Cycles: Killed
-  Common Lisp:
-    Hanoi: Killed
-    Cycles: Killed
+    Hanoi: 72.481s (SD 9.14%)
+    Cycles: 109.685s (SD 5.23%)
 
 ************************************************************
 Cleaning up... OK

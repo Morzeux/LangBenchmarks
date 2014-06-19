@@ -90,6 +90,11 @@ class Language(object):
         return self.get_stdout() if self.get_stdout() \
             else '%s:\nKilled' % (self.name)
 
+    def clean_up(self):
+        """ Cleans up compiled files. """
+        if hasattr(self, 'output') and os.path.isfile(self.output):
+            os.remove(self.output)
+
 class CLanguage(Language):
     """ C Language class. """
 
@@ -119,6 +124,30 @@ class CSLanguage(Language):
     def evaluate(self, args):
         """ Evaluates script. """
         return self.run_process('%s %s' % (self.output, args))
+
+class PascalLanguage(Language):
+    """ Pascal Language class. """
+
+    def check_version(self, param='-h'):
+        """ Checks Pascal version. """
+        return super(PascalLanguage, self).check_version(param)
+
+    def compile(self):
+        """ Compiles Java file to binary. """
+        result = self.run_process('%s %s' % (self.path, self.source))
+        return 'OK' if len(result.splitlines()) == 6 else 'FAIL:\n%s' % result
+
+    def evaluate(self, args):
+        """ Evaluates script. """
+        return self.run_process('%s %s' % (os.path.join('sources',
+                                                        self.output), args))
+
+    def clean_up(self):
+        """ Cleans up Pascal Script. """
+        output = os.path.join('sources', '.'.join(self.output.split('.')[:-1]))
+        for ext in ['o', 'exe']:
+            if os.path.isfile('%s.%s' % (output, ext)):
+                os.remove('%s.%s' % (output, ext))
 
 class JavaLanguage(Language):
     """ Java Language class. """
