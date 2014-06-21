@@ -6,27 +6,16 @@ Created on 8.6.2014
 
 from evaluator.evaluator import Evaluator
 from evaluator.languages import load_languages
-
-CONFIG = 'config.ini'
-EVALUATIONS = 5
-TIMEOUT = 300
-TESTS = [#(10, 6, 1000),
-         #(15, 6, 100000),
-         #(20, 6, 10000000),
-         (25, 6, 100000000),]
-         #(10, 6, 1000000000),
-         #(10, 6, 4294967295),
-         #(30, 6, 1000),
-         #(32, 6, 1000)]
+from evaluator import config as C
 
 def main():
     """ Main tester class. """
-    languages = load_languages(CONFIG)
+    languages = load_languages()
 
     Evaluator.print_versions(languages)
     Evaluator.print_system_info()
     Evaluator.compile_languages(languages)
-    Evaluator.test_languages(languages, TESTS, EVALUATIONS, TIMEOUT)
+    Evaluator.test_languages(languages, C.TESTS, C.EVALUATIONS, C.TIMEOUT)
     Evaluator.cleanup(languages)
 
 if __name__ == "__main__":

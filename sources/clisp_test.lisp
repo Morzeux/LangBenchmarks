@@ -15,7 +15,7 @@
 (DEFUN timeMeasure (func args)
   (let ((real (get-internal-real-time)))
     (cond ((apply func args) 
-      (/ (- (get-internal-real-time) real) 10000000)))
+      (/ (- (get-internal-real-time) real) 1000000)))
   )
 )
 

@@ -27,7 +27,7 @@ namespace CSharpTest
             sw.Start();
             hanoi(n, 1, sticks - 1, sticks);
             sw.Stop();
-            Console.WriteLine("Hanoi test passed in {0}s.", String.Format("{0:0.00}", sw.ElapsedMilliseconds / 1000.0f));
+            Console.WriteLine("Hanoi test passed in {0}s.", String.Format("{0:0.000}", sw.ElapsedMilliseconds / 1000.0f));
         }
 
         static void testCycle(ulong n)
@@ -36,7 +36,7 @@ namespace CSharpTest
             sw.Start();
             cycle(n);
             sw.Stop();
-            Console.WriteLine("Cycle test passed in {0}s.", String.Format("{0:0.00}", sw.ElapsedMilliseconds / 1000.0f));
+            Console.WriteLine("Cycle test passed in {0}s.", String.Format("{0:0.000}", sw.ElapsedMilliseconds / 1000.0f));
         }
 
         static int Main(string[] args)

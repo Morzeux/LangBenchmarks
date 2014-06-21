@@ -5,8 +5,10 @@ Created on 8.6.2014
 '''
 
 import configparser
-import os, subprocess
-import platform
+import os, subprocess, signal
+import platform, shutil
+import inspect
+from evaluator import config
 from threading import Thread
 
 if platform.system() == 'Windows':
@@ -14,15 +16,14 @@ if platform.system() == 'Windows':
 
 SOURCE_DIR = 'sources'
 
-def load_languages(config_file):
+def load_languages():
     """ Loads languages from configuration file. """
-    config = configparser.ConfigParser()
-    config.read(config_file)
 
     languages = []
-    for lang in config.sections():
-        lang_class = globals().get(config.get(lang, 'class'))
-        languages.append(lang_class(config[lang]))
+    for name, lang in sorted(inspect.getmembers(config, inspect.isclass), key=lambda x: x[1].ORDER):
+        if name not in ['CompiledLanguage', 'Language']:
+            lang_class = globals().get(name)
+            languages.append(lang_class(lang))    
 
     return languages
 
@@ -30,6 +31,7 @@ class Language(object):
     """ Abstract language class. """
 
     _stdout = ''
+    _process = None
 
     @classmethod
     def set_output(cls, stdout):
@@ -42,44 +44,57 @@ class Language(object):
         return cls._stdout
 
     @classmethod
+    def set_process(cls, process):
+        """ Sets process. """
+        cls._process = process
+
+    @classmethod
+    def get_process(cls):
+        """ Returns process value. """
+        return cls._process
+
+    @classmethod
     def run_process(cls, command):
         """ Run process and saves it output. """
-        cls.set_output(subprocess.Popen(command,
+        cls.set_process(subprocess.Popen(command,
                                         universal_newlines=True,
                                         stderr=subprocess.STDOUT,
                                         stdout=subprocess.PIPE,
-                                        shell=True).stdout.read().strip())
+                                        shell=True,
+                                        preexec_fn=os.setsid))
+        cls.set_output(cls.get_process().stdout.read().strip())
         return cls.get_stdout()
+        
+    def safe_output(self, output=None):
+        if not output:
+            output = self.output
 
-    @classmethod
-    def safe_path(cls, path):
-        """ Convert path to safe path. """
-        path = os.path.normpath(path)
-        if platform.system() == 'Windows':
-            return win32api.GetShortPathName(path)
+        if os.path.dirname(output):
+            return output
         else:
-            return path
+            return os.path.join('.', output)
 
-    def __init__(self, section):
-        self.name = section.name
-        self.path = self.safe_path(section.get('path'))
-        self.source = os.path.join(SOURCE_DIR, section.get('source'))
-        self.config = section.get('config')
-        self.output = section.get('output')
+    def __init__(self, config_lang):
+        self.name = config_lang.NAME
+        self.program = config_lang.PROGRAM
+        self.available = shutil.which(self.program)
+        
+        if not self.available:
+            return
+        
+        self.version_cmd = config_lang.VERSION
+        self.compile_cmd = config_lang.COMPILE
+        self.run_cmd = config_lang.RUN
+        self.clean = config_lang.CLEAN
+        self.version = self.check_version(config_lang.VERSION)
 
-        try:
-            self.version = self.check_version()
-        except (AttributeError, IndexError, ValueError):
-            self.version = None
-
-    def check_version(self, param='--version'):
+    def check_version(self, version):
         """ Checks version of compiler. """
-        return self.run_process('%s %s' % (self.path,
-                                           param)).splitlines()[0].strip()
+        return self.run_process(version).splitlines()[0].strip()
 
     def evaluate(self, args):
         """ Evaluates script. """
-        pass
+        return self.run_process('%s %s' % (self.run_cmd, args))
 
     def evaluate_with_timeout(self, args, timeout=None):
         """ Kills process after timeout. """
@@ -87,125 +102,87 @@ class Language(object):
         evaluation = Thread(target=self.evaluate, args=(args, ))
         evaluation.start()
         evaluation.join(timeout)
-        return self.get_stdout() if self.get_stdout() \
-            else '%s:\nKilled' % (self.name)
+        if self.get_stdout():
+            return self.get_stdout()
+        else:
+            os.killpg(self.get_process().pid, signal.SIGTERM)
+            self.set_process(None)
+            return '%s:\nKilled' % self.name
 
     def clean_up(self):
         """ Cleans up compiled files. """
-        if hasattr(self, 'output') and os.path.isfile(self.output):
-            os.remove(self.output)
+        for filename in self.clean:
+            if os.path.isfile(filename):
+                os.remove(filename)
 
-class CLanguage(Language):
-    """ C Language class. """
+class CompiledLanguage(Language):
 
     def compile(self):
-        """ Compiles C file to binary. """
-        result = self.run_process('%s %s %s %s' % (self.path, self.source,
-                                                   self.config, self.output))
+        result = self.run_process(self.compile_cmd)
         return 'OK' if not result else 'FAIL: %s' % result
 
-    def evaluate(self, args):
-        """ Evaluates script. """
-        return self.run_process('%s %s' % (self.output, args))
+class CLanguage(CompiledLanguage):
+    """ C Language class. """
+    pass
 
-class CSLanguage(Language):
+class ObjCLanguage(CompiledLanguage):
+    """ Objective-C Language class. """
+    
+    def check_version(self, version):
+        """ Checks version of compiler. """
+        return self.run_process(version).splitlines()[1].strip()
+
+class CSLanguage(CompiledLanguage):
     """ C# Language class. """
+    pass
 
-    def check_version(self, param='-help'):
-        """ Checks C# version. """
-        return super(CSLanguage, self).check_version(param)
-
-    def compile(self):
-        """ Compiles CS file to binary. """
-        result = self.run_process('%s %s%s %s' % (self.path, self.config,
-                                                  self.output, self.source))
-        return 'OK' if len(result.splitlines()) == 4 else 'FAIL: %s' % result
-
-    def evaluate(self, args):
-        """ Evaluates script. """
-        return self.run_process('%s %s' % (self.output, args))
-
-class PascalLanguage(Language):
+class PascalLanguage(CompiledLanguage):
     """ Pascal Language class. """
 
-    def check_version(self, param='-h'):
-        """ Checks Pascal version. """
-        return super(PascalLanguage, self).check_version(param)
-
     def compile(self):
-        """ Compiles Java file to binary. """
-        result = self.run_process('%s %s' % (self.path, self.source))
-        return 'OK' if len(result.splitlines()) == 6 else 'FAIL:\n%s' % result
+        """ Compiles Pascal file to binary. """
+        result = self.run_process(self.compile_cmd)
+        return 'OK' if len(result.splitlines()) in [6, 7] else 'FAIL:\n%s' % result
 
-    def evaluate(self, args):
-        """ Evaluates script. """
-        return self.run_process('%s %s' % (os.path.join('sources',
-                                                        self.output), args))
-
-    def clean_up(self):
-        """ Cleans up Pascal Script. """
-        output = os.path.join('sources', '.'.join(self.output.split('.')[:-1]))
-        for ext in ['o', 'exe']:
-            if os.path.isfile('%s.%s' % (output, ext)):
-                os.remove('%s.%s' % (output, ext))
-
-class JavaLanguage(Language):
+class JavaLanguage(CompiledLanguage):
     """ Java Language class. """
-
-    def check_version(self, param='-version'):
-        """ Checks Java version. """
-        return super(JavaLanguage, self).check_version(param)
-
-    def compile(self):
-        """ Compiles Java file to binary. """
-        result = self.run_process('%s %s %s' % (self.path, self.source,
-                                                self.config))
-        return 'OK' if not result else 'FAIL:\n%s' % result
-
-    def evaluate(self, args):
-        """ Evaluates script. """
-        path = os.path.join(os.path.split(self.path)[0], 'java')
-        output = '.'.join(self.output.split('.')[:-1])
-        return self.run_process('%s %s %s' % (path, output, args))
+    pass
 
 class JavaScriptLanguage(Language):
     """ JavaScript Language class. """
-
-    def evaluate(self, args):
-        """ Evaluates script. """
-        return self.run_process('%s %s %s' % (self.path, self.source, args))
+    pass
 
 class PHPLanguage(Language):
     """ PHP Language class. """
-
-    def evaluate(self, args):
-        """ Evaluates script. """
-        return self.run_process('%s %s %s' % (self.path, self.source, args))
+    pass
 
 class RubyLanguage(Language):
     """ Ruby Language class. """
+    pass
 
-    def evaluate(self, args):
-        """ Evaluates script. """
-        return self.run_process('%s %s %s' % (self.path, self.source, args))
+class PerlLanguage(Language):
+    """ Perl Language class. """
+    pass
+
+class BashLanguage(Language):
+    """ Bash Language class. """
+    pass
+
+class RubyLanguage(Language):
+    """ Ruby Language class. """
+    pass
 
 class PythonLanguage(Language):
     """ Python Language class. """
-
-    def evaluate(self, args):
-        """ Evaluates script. """
-        return self.run_process('%s %s %s' % (self.path, self.source, args))
+    pass
 
 class PrologLanguage(Language):
     """ Prolog Language class. """
 
     def evaluate(self, args):
         """ Evaluates script. """
-        return self.run_process('%s %s -- %s' % (self.path, self.source, args))
+        return self.run_process('%s -- %s' % (self.run_cmd, args))
 
 class CLispLanguage(Language):
     """ Common Lisp Language class. """
-
-    def evaluate(self, args):
-        """ Evaluates script. """
-        return self.run_process('%s %s %s' % (self.path, self.source, args))
+    pass

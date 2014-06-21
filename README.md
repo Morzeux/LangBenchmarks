@@ -5,6 +5,6 @@ Performance benchmarks for several programming languages. To modify languages co
 
 At now benchmark support is for:
 
-C, C#, Java, JavaScript, PHP, Ruby, Python, Prolog, Common Lisp.
+C, Objective-C, C#, Java, Pascal, JavaScript, PHP, Ruby, Python, Perl, Bash, Prolog, Common Lisp.
 
 More languages are comming soon...

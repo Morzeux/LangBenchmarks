@@ -22,13 +22,13 @@ void cycle(unsigned long n){
 void testHanoi(int n, int sticks){
 	double startTime = (double)clock();
 	hanoi(n, 1, sticks - 1, sticks);
-	printf("Hanoi test passed in %.3fs.\n", (clock() - startTime) / 1000.0f);
+	printf("Hanoi test passed in %.3fs.\n", (clock() - startTime) / 1000000.0f);
 }
 
 void testCycle(unsigned long n){
 	double startTime = (double)clock();
 	cycle(n);
-	printf("Cycle test passed in %.3fs.\n", (clock() - startTime) / 1000.0f);
+	printf("Cycle test passed in %.3fs.\n", (clock() - startTime) / 1000000.0f);
 }
 
 int main(int argc, char *argv[]){

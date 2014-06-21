@@ -48,20 +48,30 @@ class Evaluator():
             output = [line.strip() for line in output.
                       replace(',', '.').split('\n')]
 
-            if not name:
-                name = output[0][:-1]
-
-            hanoi.append(get_time(output[1]))
-            cycle.append(get_time(output[2]))
+            try:
+                if not name:
+                    name = output[0][:-1]
+    
+                hanoi.append(get_time(output[1]))
+                cycle.append(get_time(output[2]))
+            except IndexError:
+                return 'FAIL - %s' % output
 
         avg_hanoi = cls._compute_average(hanoi)
         avg_cycle = cls._compute_average(cycle)
         std_hanoi = cls._compute_rel_deviation(avg_hanoi, hanoi)
         std_cycle = cls._compute_rel_deviation(avg_cycle, cycle)
+        
+        if len(outputs) == 1:
+            std_hanoi = ''
+            std_cycle = ''
+        else:
+            std_hanoi = '(SD %.2f%%)' % std_hanoi
+            std_cycle = '(SD %.2f%%)' % std_cycle
 
         text = '  %s:' % name
-        text += '\n    Hanoi: %.3fs (SD %.2f%%)' % (avg_hanoi, std_hanoi)
-        text += '\n    Cycles: %.3fs (SD %.2f%%)' % (avg_cycle, std_cycle)
+        text += '\n    Cycles: %.3fs %s' % (avg_cycle, std_cycle)
+        text += '\n    Hanoi: %.3fs %s' % (avg_hanoi, std_hanoi)
         return text
 
     @classmethod
@@ -71,7 +81,7 @@ class Evaluator():
         print('Available compilers:')
         print('*' * 60)
         for lang in languages:
-            if lang.version:
+            if lang.available:
                 print('%s compiler: %s' % (lang.name, lang.version))
             else:
                 print('%s compiler: Not available' % lang.name)
@@ -96,7 +106,7 @@ class Evaluator():
         print('Compiling results:')
         print('*' * 60)
         for lang in languages:
-            if hasattr(lang, 'compile'):
+            if hasattr(lang, 'compile') and lang.available:
                 print('Compiling %s...' % lang.name, end=' ')
                 print(lang.compile())
         print('')
@@ -104,7 +114,7 @@ class Evaluator():
     @classmethod
     def test_languages(cls, languages, tests, average=1, timeout=None):
         """ Evaluates languages. """
-        bad_output = '  %s:\n    Hanoi: Killed\n    Cycles: Killed'
+        bad_output = '  %s:\n    Cycles: Dead\n    Hanoi: Even more dead'
 
         print('Test results (%d evaluations):' % average)
         print('*' * 60)
@@ -115,7 +125,7 @@ class Evaluator():
                   % (i + 1, test[0], test[1], test[2]))
 
             for lang in languages:
-                if lang.version:
+                if lang.available:
                     output = []
                     for _ in range(average):
                         output.append(lang.evaluate_with_timeout(params,
@@ -134,5 +144,6 @@ class Evaluator():
         print('*' * 60)
         print('Cleaning up...', end=' ')
         for lang in languages:
-            lang.clean_up()
+            if lang.available:
+                lang.clean_up()
         print('OK\n')
