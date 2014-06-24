@@ -107,39 +107,39 @@ to construct tables and graphs.
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
 | C | 0.000s | 0.00% | 0.000s | 0.00% |
-| Pascal | 0.000s | 122.47% | 0.000s | 122.47% |
-| Java | 0.000s | 122.47% | 0.001s | 81.65% |
-| Ruby | 0.004s | 23.18% | 0.009s | 17.39% |
-    
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph1.png "Bar graph results 1")
+| Pascal | 0.000s | 200.00% | 0.001s | 81.65% |
+| Java | 0.001s | 50.00% | 0.001s | 50.00% |
+| Ruby | 0.004s | 17.82% | 0.008s | 23.33% |
 
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph1.png "Box graph results 1")
+![Bar graph results 1](results/bar_graph1.png)
+
+![Box graph results 1](results/box_graph1.png)
 
 #### Test 2. - Discs 20, Iterations 10000000
     
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
 | C | 0.000s | 0.00% | 0.000s | 0.00% |
-| Pascal | 0.034s | 17.39% | 0.014s | 12.11% |
-| Java | 0.020s | 11.45% | 0.006s | 28.98% |
-| Ruby | 0.374s | 8.30% | 0.256s | 4.22% |
-    
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph2.png "Bar graph results 2")
+| Pascal | 0.028s | 3.47% | 0.011s | 11.32% |
+| Java | 0.017s | 4.82% | 0.005s | 14.81% |
+| Ruby | 0.343s | 4.32% | 0.237s | 1.74% |
 
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph2.png "Box graph results 2")
+![Bar graph results 2](results/bar_graph2.png)
+
+![Box graph results 2](results/box_graph2.png)
 
 #### Test 3. - Discs 25, Iterations 100000000
     
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
 | C | 0.000s | 0.00% | 0.000s | 0.00% |
-| Pascal | 0.293s | 1.66% | 0.355s | 2.99% |
-| Java | 0.178s | 5.74% | 0.208s | 17.60% |
+| Pascal | 0.288s | 0.56% | 0.341s | 3.12% |
+| Java | 0.171s | 7.46% | 0.168s | 1.16% |
 | Ruby | Dead | Dead | Dead | Dead |
-    
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph3.png "Bar graph results 3")
 
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph3.png "Box graph results 3")
+![Bar graph results 3](results/bar_graph3.png)
+
+![Box graph results 3](results/box_graph3.png)
 
 #### Test 4. - Discs 30, Iterations 1000000000
     
@@ -149,10 +149,10 @@ to construct tables and graphs.
 | Pascal | Dead | Dead | Dead | Dead |
 | Java | Dead | Dead | Dead | Dead |
 | Ruby | Dead | Dead | Dead | Dead |
-    
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph4.png "Bar graph results 4")
 
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph4.png "Box graph results 4")
+![Bar graph results 4](results/bar_graph4.png)
+
+![Box graph results 4](results/box_graph4.png)
 
 #### Test 5. - Discs 32, Iterations 4294967295
     
@@ -162,8 +162,8 @@ to construct tables and graphs.
 | Pascal | Dead | Dead | Dead | Dead |
 | Java | Dead | Dead | Dead | Dead |
 | Ruby | Dead | Dead | Dead | Dead |
-    
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph5.png "Bar graph results 5")
 
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph5.png "Box graph results 5")
+![Bar graph results 5](results/bar_graph5.png)
+
+![Box graph results 5](results/box_graph5.png)
 

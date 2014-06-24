@@ -11,7 +11,7 @@ from evaluator import config as C
 
 class DocuGenerator(object):
     
-    URL = 'https://github.com/Morzeux/LangBenchmarks/tree/master/%s'
+    #URL = 'https://github.com/Morzeux/LangBenchmarks/tree/master/%s'
     
     README_TEMPLATE = """
 # LangBenchmarks
@@ -105,10 +105,10 @@ to construct tables and graphs.
 #### Test %d. - Discs %d, Iterations %d
     
 %s
-    
-![alt text](%s "Bar graph results %d")
 
-![alt text](%s "Box graph results %d")
+![Bar graph results %d](%s)
+
+![Box graph results %d](%s)
 
 """
 
@@ -174,8 +174,6 @@ to construct tables and graphs.
 
             graphs.append((cls.save_graph(bar_chart,'bar_graph%d' % (i + 1)),
                            cls.save_graph(box_plot,'box_graph%d' % (i + 1))))
-            #bar_chart.render_to_file(graphs[-1][0])
-            #box_plot.render_to_file(graphs[-1][1])
 
         return graphs
 
@@ -214,8 +212,8 @@ to construct tables and graphs.
         for i, test in enumerate(results):
             j = i + 1
             res = cls.RESULTS_TEMPLATE % (j, test['disks'], test['iters'],
-                                          tables[i], cls.URL % graphs[i][0],
-                                          j, cls.URL % graphs[i][1], j)
+                                          tables[i], j, graphs[i][0],
+                                          j, graphs[i][1])
             text += res.lstrip()
 
         return text
