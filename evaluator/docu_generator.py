@@ -5,7 +5,7 @@ Created on 24.6.2014
 @author: Morzeux
 '''
 
-import pygal, cairosvg
+import pygal
 import os, sys
 from evaluator import config as C
 
