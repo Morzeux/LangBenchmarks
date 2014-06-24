@@ -107,39 +107,39 @@ to construct tables and graphs.
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
 | C | 0.000s | 0.000% | 0.000s | 0.000% |
-| Pascal | Dead | Dead | Dead | Dead |
-| Java | 0.000s | 122.474% | 0.000s | 122.474% |
-| Ruby | 0.003s | 12.500% | 0.007s | 5.556% |
+| Pascal | 0.000s | 200.000% | 0.000s | 200.000% |
+| Java | 0.001s | 81.650% | 0.001s | 50.000% |
+| Ruby | 0.004s | 23.328% | 0.009s | 12.676% |
     
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results\bar_graph1.svg "Bar graph results 1")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph1.svg "Bar graph results 1")
 
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results\box_graph1.svg "Box graph results 1")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph1.svg "Box graph results 1")
 
 #### Test 2. - Discs 20, Iterations 10000000
     
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
 | C | 0.000s | 0.000% | 0.000s | 0.000% |
-| Pascal | 0.028s | 2.692% | 0.010s | 10.954% |
-| Java | 0.019s | 6.452% | 0.006s | 14.286% |
-| Ruby | 0.339s | 1.944% | 0.239s | 4.544% |
+| Pascal | 0.028s | 1.775% | 0.011s | 13.122% |
+| Java | 0.018s | 16.851% | 0.006s | 23.385% |
+| Ruby | 0.328s | 1.566% | 0.235s | 6.445% |
     
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results\bar_graph2.svg "Bar graph results 2")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph2.svg "Bar graph results 2")
 
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results\box_graph2.svg "Box graph results 2")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph2.svg "Box graph results 2")
 
 #### Test 3. - Discs 25, Iterations 100000000
     
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
 | C | 0.000s | 0.000% | 0.000s | 0.000% |
-| Pascal | 0.288s | 1.141% | 0.329s | 1.526% |
-| Java | 0.164s | 1.317% | 0.166s | 1.264% |
+| Pascal | 0.285s | 1.283% | 0.325s | 1.108% |
+| Java | 0.163s | 0.920% | 0.163s | 0.716% |
 | Ruby | Dead | Dead | Dead | Dead |
     
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results\bar_graph3.svg "Bar graph results 3")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph3.svg "Bar graph results 3")
 
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results\box_graph3.svg "Box graph results 3")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph3.svg "Box graph results 3")
 
 #### Test 4. - Discs 30, Iterations 1000000000
     
@@ -150,9 +150,9 @@ to construct tables and graphs.
 | Java | Dead | Dead | Dead | Dead |
 | Ruby | Dead | Dead | Dead | Dead |
     
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results\bar_graph4.svg "Bar graph results 4")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph4.svg "Bar graph results 4")
 
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results\box_graph4.svg "Box graph results 4")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph4.svg "Box graph results 4")
 
 #### Test 5. - Discs 32, Iterations 4294967295
     
@@ -163,7 +163,7 @@ to construct tables and graphs.
 | Java | Dead | Dead | Dead | Dead |
 | Ruby | Dead | Dead | Dead | Dead |
     
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results\bar_graph5.svg "Bar graph results 5")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph5.svg "Bar graph results 5")
 
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results\box_graph5.svg "Box graph results 5")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph5.svg "Box graph results 5")
 

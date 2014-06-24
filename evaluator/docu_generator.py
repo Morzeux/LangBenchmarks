@@ -115,7 +115,7 @@ to construct tables and graphs.
 
     @classmethod
     def _get_graph_filename(cls, filename, val):
-        return os.path.join(cls.RESULTS_DIR, filename % (val + 1))
+        return '%s/%s' % (cls.RESULTS_DIR, filename % (val + 1))
 
     @classmethod
     def create_tables(cls, results):
