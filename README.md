@@ -106,40 +106,40 @@ to construct tables and graphs.
     
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
-| C | 0.000s | 0.000% | 0.000s | 0.000% |
-| Pascal | 0.000s | 200.000% | 0.000s | 200.000% |
-| Java | 0.001s | 81.650% | 0.001s | 50.000% |
-| Ruby | 0.004s | 23.328% | 0.009s | 12.676% |
+| C | 0.000s | 0.00% | 0.000s | 0.00% |
+| Pascal | 0.000s | 122.47% | 0.000s | 122.47% |
+| Java | 0.000s | 122.47% | 0.001s | 81.65% |
+| Ruby | 0.004s | 23.18% | 0.009s | 17.39% |
     
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph1.svg "Bar graph results 1")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph1.png "Bar graph results 1")
 
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph1.svg "Box graph results 1")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph1.png "Box graph results 1")
 
 #### Test 2. - Discs 20, Iterations 10000000
     
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
-| C | 0.000s | 0.000% | 0.000s | 0.000% |
-| Pascal | 0.028s | 1.775% | 0.011s | 13.122% |
-| Java | 0.018s | 16.851% | 0.006s | 23.385% |
-| Ruby | 0.328s | 1.566% | 0.235s | 6.445% |
+| C | 0.000s | 0.00% | 0.000s | 0.00% |
+| Pascal | 0.034s | 17.39% | 0.014s | 12.11% |
+| Java | 0.020s | 11.45% | 0.006s | 28.98% |
+| Ruby | 0.374s | 8.30% | 0.256s | 4.22% |
     
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph2.svg "Bar graph results 2")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph2.png "Bar graph results 2")
 
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph2.svg "Box graph results 2")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph2.png "Box graph results 2")
 
 #### Test 3. - Discs 25, Iterations 100000000
     
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
-| C | 0.000s | 0.000% | 0.000s | 0.000% |
-| Pascal | 0.285s | 1.283% | 0.325s | 1.108% |
-| Java | 0.163s | 0.920% | 0.163s | 0.716% |
+| C | 0.000s | 0.00% | 0.000s | 0.00% |
+| Pascal | 0.293s | 1.66% | 0.355s | 2.99% |
+| Java | 0.178s | 5.74% | 0.208s | 17.60% |
 | Ruby | Dead | Dead | Dead | Dead |
     
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph3.svg "Bar graph results 3")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph3.png "Bar graph results 3")
 
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph3.svg "Box graph results 3")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph3.png "Box graph results 3")
 
 #### Test 4. - Discs 30, Iterations 1000000000
     
@@ -150,9 +150,9 @@ to construct tables and graphs.
 | Java | Dead | Dead | Dead | Dead |
 | Ruby | Dead | Dead | Dead | Dead |
     
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph4.svg "Bar graph results 4")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph4.png "Bar graph results 4")
 
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph4.svg "Box graph results 4")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph4.png "Box graph results 4")
 
 #### Test 5. - Discs 32, Iterations 4294967295
     
@@ -163,7 +163,7 @@ to construct tables and graphs.
 | Java | Dead | Dead | Dead | Dead |
 | Ruby | Dead | Dead | Dead | Dead |
     
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph5.svg "Bar graph results 5")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/bar_graph5.png "Bar graph results 5")
 
-![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph5.svg "Box graph results 5")
+![alt text](https://github.com/Morzeux/LangBenchmarks/tree/master/results/box_graph5.png "Box graph results 5")
 

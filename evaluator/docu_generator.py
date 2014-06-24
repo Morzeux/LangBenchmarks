@@ -5,7 +5,8 @@ Created on 24.6.2014
 @author: Morzeux
 '''
 
-import pygal, os
+import pygal, cairosvg
+import os, sys
 from evaluator import config as C
 
 class DocuGenerator(object):
@@ -114,8 +115,10 @@ to construct tables and graphs.
     RESULTS_DIR = 'results'
 
     @classmethod
-    def _get_graph_filename(cls, filename, val):
-        return '%s/%s' % (cls.RESULTS_DIR, filename % (val + 1))
+    def save_graph(cls, graph, filename):
+        output = '%s/%s.png' % (cls.RESULTS_DIR, filename)
+        graph.render_to_png(output)        
+        return output
 
     @classmethod
     def create_tables(cls, results):
@@ -125,7 +128,7 @@ to construct tables and graphs.
             elif value.startswith('avg'):
                 return '%.3fs' % lang[1].get(value)
             elif value.startswith('std'):
-                return '%.3f%%' % lang[1].get(value)
+                return '%.2f%%' % lang[1].get(value)
         
         tables = []
         for test in results:
@@ -152,7 +155,7 @@ to construct tables and graphs.
                                                               test['disks'],
                                                               test['iters'])
 
-            bar_chart = pygal.Bar()
+            bar_chart = pygal.Bar(print_values=False)
             bar_chart.title = title
             bar_chart.x_labels = [res[0] for res in test['results'] if res[1]]
             bar_chart.y_title = 'Time [s]'
@@ -161,17 +164,18 @@ to construct tables and graphs.
             bar_chart.add('Hanoi Test', [res[1]['avg_hanoi'] \
                                          for res in test['results'] if res[1]])
 
-            box_plot = pygal.Box()
+            box_plot = pygal.Box(print_values=False)
             box_plot.title = title
             for res in test['results']:
                 if res[1]:
                     box_plot.add(res[0], [res[1]['avg_cycle'],
                                           res[1]['avg_hanoi']])
 
-            graphs.append((cls._get_graph_filename('bar_graph%d.svg', i),
-                           cls._get_graph_filename('box_graph%d.svg', i)))
-            bar_chart.render_to_file(graphs[-1][0])
-            box_plot.render_to_file(graphs[-1][1])
+
+            graphs.append((cls.save_graph(bar_chart,'bar_graph%d' % (i + 1)),
+                           cls.save_graph(box_plot,'box_graph%d' % (i + 1))))
+            #bar_chart.render_to_file(graphs[-1][0])
+            #box_plot.render_to_file(graphs[-1][1])
 
         return graphs
 
