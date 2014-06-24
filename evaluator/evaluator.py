@@ -12,6 +12,8 @@ import re
 class Evaluator():
     """ Static helper class to evaluate languages. """
 
+    results = {}
+
     @classmethod
     def __init__(cls):
         pass
@@ -34,7 +36,7 @@ class Evaluator():
         return (deviation / average) * 100 if average else 0
 
     @classmethod
-    def _format_output(cls, outputs):
+    def _format_output(cls, outputs, results):
         """ Formats output from scripts outputs. """
 
         def get_time(line):
@@ -51,17 +53,24 @@ class Evaluator():
             try:
                 if not name:
                     name = output[0][:-1]
-    
+
                 hanoi.append(get_time(output[1]))
                 cycle.append(get_time(output[2]))
-            except IndexError:
+            except (AttributeError, IndexError):
                 return 'FAIL - %s' % output
 
         avg_hanoi = cls._compute_average(hanoi)
         avg_cycle = cls._compute_average(cycle)
         std_hanoi = cls._compute_rel_deviation(avg_hanoi, hanoi)
         std_cycle = cls._compute_rel_deviation(avg_cycle, cycle)
-        
+
+        results.append((name, {'hanoi_times': hanoi,
+                               'cycles_times': cycle,
+                               'avg_hanoi': avg_hanoi,
+                               'avg_cycle': avg_cycle,
+                               'std_hanoi': std_hanoi,
+                               'std_cycle': std_cycle}))
+
         if len(outputs) == 1:
             std_hanoi = ''
             std_cycle = ''
@@ -78,26 +87,28 @@ class Evaluator():
     def print_versions(cls, languages):
         """ Prints versions of evaluated languages. """
 
-        print('Available compilers:')
-        print('*' * 60)
+        text = 'Available compilers:\n'
+        text += '*' * 60 + '\n'
         for lang in languages:
             if lang.available:
-                print('%s compiler: %s' % (lang.name, lang.version))
+                text += '%s compiler: %s\n' % (lang.name, lang.version)
             else:
-                print('%s compiler: Not available' % lang.name)
-        print('')
+                text += '%s compiler: Not available\n' % lang.name
+
+        return text
 
     @classmethod
     def print_system_info(cls):
         """ Prints actual system environment information. """
 
-        print('System:')
-        print('*' * 60)
-        print('Operating System: %s' % platform.platform())
-        print('Processor: %s' % platform.processor())
-        print('Total memory: %.3fGB' % (float(psutil.
-                                              phymem_usage().total) / 1024**3))
-        print('')
+        text = 'System:\n'
+        text += '*' * 60 + '\n'
+        text += 'Operating System: %s\n' % platform.platform()
+        text += 'Processor: %s\n' % platform.processor()
+        text += 'Total memory: %.3fGB\n' % (float(psutil.
+                                                  phymem_usage().
+                                                  total) / 1024**3)
+        return text
 
     @classmethod
     def compile_languages(cls, languages):
@@ -115,6 +126,7 @@ class Evaluator():
     def test_languages(cls, languages, tests, average=1, timeout=None):
         """ Evaluates languages. """
         bad_output = '  %s:\n    Cycles: Dead\n    Hanoi: Even more dead'
+        results = []
 
         print('Test results (%d evaluations):' % average)
         print('*' * 60)
@@ -124,6 +136,11 @@ class Evaluator():
             print('%d. Hanoi(disks=%d, sticks=%d); Cycles(iters=%d)' \
                   % (i + 1, test[0], test[1], test[2]))
 
+            results.append({'disks': test[0],
+                           'sticks': test[1],
+                           'iters': test[2],
+                           'results': []})
+
             for lang in languages:
                 if lang.available:
                     output = []
@@ -131,11 +148,18 @@ class Evaluator():
                         output.append(lang.evaluate_with_timeout(params,
                                                                  timeout))
                         if 'Killed' in output[-1]:
+                            results[-1]['results'].append((lang.name, {}))
                             print(bad_output % lang.name)
                             break
                     else:
-                        print(cls._format_output(output))
+                        print(cls._format_output(output,
+                                                 results[-1]['results']))
             print('')
+        return results
+            
+    @classmethod
+    def update_readme(cls, results):
+        pass
 
     @classmethod
     def cleanup(cls, languages):

@@ -3,25 +3,28 @@ Created on Jun 20, 2014
 
 @author: Stefan Smihla
 '''
-import os, platform, shutil
+import os, platform
 if platform.system() == 'Windows':
     import win32api
 
 def safe_path(path):
     """ Convert path to safe path. """
-    path = shutil.which(os.path.normpath(path))
-    if path and platform.system() == 'Windows':
+    path = os.path.normpath(path)
+    if platform.system() == 'Windows':
         return win32api.GetShortPathName(path)
     else:
         return path
 
-EVALUATIONS = 5
-TIMEOUT = 1
-TESTS = [(15, 6, 100000),
+EVALUATIONS = 1
+TIMEOUT = 600
+TESTS = [#(10, 6, 1000),
+         #(15, 6, 100000),
          (20, 6, 10000000),
-         (25, 6, 100000000),
-         (30, 6, 1000000000),
-         (32, 6, 4294967295)]
+         (25, 6, 100000000),]
+         #(10, 6, 1000000000),
+         #(10, 6, 4294967295),
+         #(30, 6, 1000),
+         #(32, 6, 1000)]
 
 class Language(object):
     NAME = None
@@ -34,19 +37,19 @@ class Language(object):
     
 class CLanguage(Language):
     NAME = 'C'
-    PROGRAM = safe_path('C:\\Software\\MinGW\\bin\\gcc.exe')
+    PROGRAM = safe_path('cc')
     VERSION = '%s --version' % PROGRAM
-    COMPILE = '%s -Wall sources/c_test.c -o c_test.exe' % PROGRAM 
-    RUN = os.path.join('.', 'c_test.exe')
-    CLEAN = ['c_test.exe']
+    COMPILE = '%s -Wall sources/c_test.c -o c_test' % PROGRAM 
+    RUN = './c_test'
+    CLEAN = ['c_test']
     ORDER = 1
 
 class ObjCLanguage(Language):
     NAME = 'Objective-C'
-    PROGRAM = safe_path('ggcc')
+    PROGRAM = safe_path('gcc')
     VERSION = '%s --version' % PROGRAM
     COMPILE = '%s -o objc_test -Wall -std=c99 sources/objc_test.m -framework Foundation -lobjc' % PROGRAM 
-    RUN = os.path.join('.', 'objc_test')
+    RUN = './objc_test'
     CLEAN = ['objc_test']
     ORDER = 2
 
@@ -61,11 +64,11 @@ class CSLanguage(Language):
 
 class PascalLanguage(Language):
     NAME = 'Pascal'
-    PROGRAM = safe_path('C:\\Software\\FPC\\2.6.4\\bin\\i386-win32\\fpc.exe')
+    PROGRAM = safe_path('fpc')
     VERSION = '%s -h' % PROGRAM
     COMPILE = '%s sources/pascal_test.pas' % PROGRAM 
-    RUN = os.path.join('sources', 'pascal_test.exe')
-    CLEAN = ['sources/pascal_test.exe', 'sources/pascal_test.o']
+    RUN = 'sources/pascal_test'
+    CLEAN = ['sources/pascal_test', 'sources/pascal_test.o']
     ORDER = 4
 
 class JavaLanguage(Language):
