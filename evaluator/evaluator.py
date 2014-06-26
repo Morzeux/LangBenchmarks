@@ -136,10 +136,8 @@ class Evaluator():
             print('%d. Hanoi(disks=%d, sticks=%d); Cycles(iters=%d)' \
                   % (i + 1, test[0], test[1], test[2]))
 
-            results.append({'disks': test[0],
-                           'sticks': test[1],
-                           'iters': test[2],
-                           'results': []})
+            results.append({'disks': test[0], 'sticks': test[1],
+                            'iters': test[2], 'results': []})
 
             for lang in languages:
                 if lang.available:
@@ -156,10 +154,7 @@ class Evaluator():
                                                  results[-1]['results']))
             print('')
         return results
-            
-    @classmethod
-    def update_readme(cls, results):
-        pass
+
 
     @classmethod
     def cleanup(cls, languages):

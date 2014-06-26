@@ -6,13 +6,13 @@ Created on 24.6.2014
 '''
 
 import pygal
-import os, sys
+import os
+from evaluator.languages import Language
 from evaluator import config as C
 
 class DocuGenerator(object):
-    
-    #URL = 'https://github.com/Morzeux/LangBenchmarks/tree/master/%s'
-    
+    """ This module generates README.md for GitHub."""
+
     README_TEMPLATE = """
 # LangBenchmarks
 
@@ -56,7 +56,7 @@ while clause.
 def cycle(n):
     i = 0
     while i < n:
-        i += 1;
+        i += 1
 ```
 
 ### Hanoi test
@@ -116,23 +116,34 @@ to construct tables and graphs.
 
     @classmethod
     def save_graph(cls, graph, filename):
-        output = '%s/%s.png' % (cls.RESULTS_DIR, filename)
-        graph.render_to_png(output)        
-        return output
+        """ Saves graphs in svg format. """
+
+        svg_output = '%s/%s.svg' % (cls.RESULTS_DIR, filename)
+        png_output = '%s/%s.png' % (cls.RESULTS_DIR, filename)
+        graph.render_to_file(svg_output)
+        Language.run_process('%s -f %s -e %s' % (C.INKSCAPE_PATH, svg_output,
+                                                 png_output))
+        os.remove(svg_output)
+        return png_output
 
     @classmethod
     def create_tables(cls, results):
+        """ Creates table in Markdown language. """
+
         def get_value(lang, value):
+            """ Returns formatted value for table from results. """
+
             if lang[1].get(value) is None:
                 return 'Dead'
             elif value.startswith('avg'):
                 return '%.3fs' % lang[1].get(value)
             elif value.startswith('std'):
                 return '%.2f%%' % lang[1].get(value)
-        
+
         tables = []
         for test in results:
-            header = ['Lang', 'Avg. cycles', 'Std. cycles', 'Avg. hanoi', 'Std. hanoi']
+            header = ['Lang', 'Avg. cycles', 'Std. cycles',
+                      'Avg. hanoi', 'Std. hanoi']
             sec_header = [':-----:' for _ in range(len(header))]
             table = [header, sec_header]
             for lang in test['results']:
@@ -141,13 +152,14 @@ to construct tables and graphs.
                               get_value(lang, 'std_cycle'),
                               get_value(lang, 'avg_hanoi'),
                               get_value(lang, 'std_hanoi')])
-            
+
             table = '\n'.join(['| %s |' % ' | '.join(row) for row in table])
             tables.append(table.strip())
         return tables
 
     @classmethod
     def create_graphs(cls, results):
+        """ Creates graphs from results. """
 
         graphs = []
         for i, test in enumerate(results):
@@ -155,7 +167,8 @@ to construct tables and graphs.
                                                               test['disks'],
                                                               test['iters'])
 
-            bar_chart = pygal.Bar(print_values=False)
+            bar_chart = pygal.Bar(print_values=False, logarithmic=True,
+                                  human_readable=True, legend_at_bottom=True)
             bar_chart.title = title
             bar_chart.x_labels = [res[0] for res in test['results'] if res[1]]
             bar_chart.y_title = 'Time [s]'
@@ -164,21 +177,22 @@ to construct tables and graphs.
             bar_chart.add('Hanoi Test', [res[1]['avg_hanoi'] \
                                          for res in test['results'] if res[1]])
 
-            box_plot = pygal.Box(print_values=False)
+            box_plot = pygal.Box(print_values=False, legend_at_bottom=True)
             box_plot.title = title
             for res in test['results']:
                 if res[1]:
                     box_plot.add(res[0], [res[1]['avg_cycle'],
                                           res[1]['avg_hanoi']])
 
-
-            graphs.append((cls.save_graph(bar_chart,'bar_graph%d' % (i + 1)),
-                           cls.save_graph(box_plot,'box_graph%d' % (i + 1))))
+            graphs.append((cls.save_graph(bar_chart, 'bar_graph%d' % (i + 1)),
+                           cls.save_graph(box_plot, 'box_graph%d' % (i + 1))))
 
         return graphs
 
     @classmethod
     def create_version_table(cls, versions):
+        """ Creates table with versions of compilers and interpreters. """
+
         header = ['Language', 'Available Version']
         sec_header = [':-----:' for _ in range(len(header))]
         table = [header, sec_header]
@@ -192,6 +206,8 @@ to construct tables and graphs.
 
     @classmethod
     def create_system_info_table(cls, system_info):
+        """ Creates table with system environment info. """
+
         header = ['Info', '']
         sec_header = [':-----:' for _ in range(2)]
         table = [header, sec_header]
@@ -205,6 +221,8 @@ to construct tables and graphs.
 
     @classmethod
     def build_results_section(cls, results):
+        """ Builds results section info. """
+
         tables = cls.create_tables(results)
         graphs = cls.create_graphs(results)
 
@@ -220,6 +238,8 @@ to construct tables and graphs.
 
     @classmethod
     def generate_readme(cls, versions, system_info, results):
+        """ Generates README.md in Markdown syntax with all necessary info. """
+
         if not os.path.exists(cls.RESULTS_DIR):
             os.makedirs(cls.RESULTS_DIR)
 

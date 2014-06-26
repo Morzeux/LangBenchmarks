@@ -53,6 +53,8 @@ class Language(object):
 
     @classmethod
     def build_proc_params(cls):
+        """ Build args depended on OS. """
+
         params = {'universal_newlines': True,
                   'stderr': subprocess.STDOUT,
                   'stdout': subprocess.PIPE,
@@ -118,8 +120,11 @@ class Language(object):
                 os.remove(filename)
 
 class CompiledLanguage(Language):
+    """ Class for compiled languages. """
 
     def compile(self):
+        """ Compile source code into binary. """
+
         result = self.run_process(self.compile_cmd)
         return 'OK' if not result else 'FAIL: %s' % result
 
@@ -129,7 +134,7 @@ class CLanguage(CompiledLanguage):
 
 class ObjCLanguage(CompiledLanguage):
     """ Objective-C Language class. """
-    
+
     def check_version(self, version):
         """ Checks version of compiler. """
         return self.run_process(version).splitlines()[1].strip()
@@ -144,7 +149,8 @@ class PascalLanguage(CompiledLanguage):
     def compile(self):
         """ Compiles Pascal file to binary. """
         result = self.run_process(self.compile_cmd)
-        return 'OK' if len(result.splitlines()) in [6, 7] else 'FAIL:\n%s' % result
+        return 'OK' if len(result.splitlines()) in [6, 7] \
+                    else 'FAIL:\n%s' % result
 
 class JavaLanguage(CompiledLanguage):
     """ Java Language class. """

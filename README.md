@@ -41,7 +41,7 @@ while clause.
 def cycle(n):
     i = 0
     while i < n:
-        i += 1;
+        i += 1
 ```
 
 ### Hanoi test
@@ -106,19 +106,19 @@ to construct tables and graphs.
     
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
-| C | 0.003s | 14.41% | 0.000s | 0.00% |
+| C | 0.003s | 0.00% | 0.000s | 0.00% |
 | Objective-C | 0.003s | 0.00% | 0.001s | 0.00% |
 | C# | 0.004s | 0.00% | 0.000s | 0.00% |
-| Pascal | 0.002s | 22.22% | 0.000s | 200.00% |
-| Java | 0.003s | 23.53% | 0.002s | 30.62% |
-| JavaScript | 0.002s | 30.62% | 0.002s | 22.22% |
-| PHP | 0.155s | 1.66% | 0.122s | 1.47% |
-| Ruby | 0.028s | 1.44% | 0.008s | 0.00% |
-| Python | 0.123s | 0.32% | 0.022s | 0.00% |
-| Perl | 0.114s | 1.70% | 0.052s | 0.95% |
-| Bash | 26.226s | 2.24% | 4.284s | 1.50% |
-| Prolog | 0.052s | 0.95% | 0.006s | 18.26% |
-| Common Lisp | 1.345s | 1.48% | 0.120s | 4.18% |
+| Pascal | 0.003s | 57.14% | 0.001s | 0.00% |
+| Java | 0.003s | 14.41% | 0.001s | 0.00% |
+| JavaScript | 0.001s | 34.99% | 0.002s | 0.00% |
+| PHP | 0.157s | 3.05% | 0.123s | 0.83% |
+| Ruby | 0.028s | 3.91% | 0.008s | 0.00% |
+| Python | 0.133s | 8.63% | 0.022s | 3.37% |
+| Perl | 0.109s | 0.90% | 0.052s | 2.63% |
+| Bash | 26.132s | 3.06% | 4.274s | 2.33% |
+| Prolog | 0.055s | 10.53% | 0.006s | 40.03% |
+| Common Lisp | 1.334s | 0.58% | 0.115s | 0.95% |
 
 ![Bar graph results 1](results/bar_graph1.png)
 
@@ -128,19 +128,19 @@ to construct tables and graphs.
     
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
-| C | 0.029s | 2.60% | 0.010s | 0.00% |
-| Objective-C | 0.029s | 2.60% | 0.017s | 4.35% |
-| C# | 0.046s | 2.12% | 0.010s | 9.61% |
-| Pascal | 0.031s | 17.12% | 0.012s | 3.39% |
-| Java | 0.011s | 3.70% | 0.006s | 0.00% |
-| JavaScript | 0.013s | 3.12% | 0.019s | 3.90% |
-| PHP | 1.605s | 2.14% | 4.058s | 2.19% |
-| Ruby | 0.283s | 1.59% | 0.252s | 4.62% |
-| Python | 1.261s | 1.48% | 0.724s | 1.19% |
-| Perl | 1.155s | 1.19% | 1.671s | 2.43% |
+| C | 0.029s | 4.88% | 0.010s | 0.00% |
+| Objective-C | 0.028s | 1.72% | 0.017s | 2.82% |
+| C# | 0.044s | 0.00% | 0.010s | 7.34% |
+| Pascal | 0.029s | 4.08% | 0.011s | 10.53% |
+| Java | 0.010s | 4.71% | 0.007s | 11.00% |
+| JavaScript | 0.013s | 4.87% | 0.019s | 3.90% |
+| PHP | 1.556s | 4.22% | 4.056s | 1.74% |
+| Ruby | 0.303s | 11.13% | 0.250s | 1.06% |
+| Python | 1.290s | 1.80% | 0.710s | 2.13% |
+| Perl | 1.106s | 1.09% | 1.659s | 1.83% |
 | Bash | Dead | Dead | Dead | Dead |
-| Prolog | 0.517s | 1.58% | 0.601s | 1.20% |
-| Common Lisp | 13.455s | 1.74% | 3.776s | 0.96% |
+| Prolog | 0.515s | 2.07% | 0.596s | 2.26% |
+| Common Lisp | 13.800s | 4.40% | 3.768s | 2.20% |
 
 ![Bar graph results 2](results/bar_graph2.png)
 
@@ -150,18 +150,18 @@ to construct tables and graphs.
     
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
-| C | 0.288s | 1.13% | 0.319s | 0.70% |
-| Objective-C | 0.286s | 0.49% | 0.547s | 2.43% |
-| C# | 0.456s | 2.70% | 0.320s | 1.51% |
-| Pascal | 0.288s | 3.30% | 0.354s | 1.38% |
-| Java | 0.085s | 1.15% | 0.157s | 0.51% |
-| JavaScript | 0.126s | 2.93% | 0.573s | 5.38% |
+| C | 0.286s | 3.26% | 0.318s | 1.17% |
+| Objective-C | 0.289s | 2.73% | 0.575s | 4.65% |
+| C# | 0.449s | 0.88% | 0.324s | 2.43% |
+| Pascal | 0.285s | 1.43% | 0.361s | 2.60% |
+| Java | 0.088s | 8.53% | 0.158s | 3.67% |
+| JavaScript | 0.124s | 1.86% | 0.562s | 1.75% |
 | PHP | Dead | Dead | Dead | Dead |
-| Ruby | 2.817s | 0.98% | 7.905s | 1.22% |
-| Python | 12.527s | 0.45% | 22.872s | 0.64% |
-| Perl | 11.426s | 0.43% | 53.738s | 1.41% |
+| Ruby | 2.867s | 1.24% | 8.076s | 2.41% |
+| Python | 12.871s | 0.47% | 22.799s | 1.41% |
+| Perl | 11.173s | 1.06% | 54.272s | 2.00% |
 | Bash | Dead | Dead | Dead | Dead |
-| Prolog | 5.159s | 0.44% | 20.209s | 1.29% |
+| Prolog | 5.132s | 0.45% | 19.532s | 2.41% |
 | Common Lisp | Dead | Dead | Dead | Dead |
 
 ![Bar graph results 3](results/bar_graph3.png)
@@ -172,12 +172,12 @@ to construct tables and graphs.
     
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
-| C | 2.913s | 1.70% | 10.434s | 1.50% |
-| Objective-C | 2.881s | 0.70% | 17.424s | 0.85% |
-| C# | 4.526s | 0.05% | 10.290s | 0.19% |
-| Pascal | 2.873s | 0.81% | 11.610s | 0.57% |
-| Java | 0.831s | 1.92% | 4.497s | 0.65% |
-| JavaScript | 1.256s | 1.53% | 18.026s | 1.38% |
+| C | 2.853s | 0.64% | 10.540s | 5.60% |
+| Objective-C | 2.868s | 0.55% | 17.418s | 0.90% |
+| C# | 4.558s | 1.38% | 10.255s | 0.12% |
+| Pascal | 2.894s | 1.89% | 11.476s | 0.75% |
+| Java | 0.852s | 2.01% | 4.618s | 0.82% |
+| JavaScript | 1.249s | 1.52% | 18.742s | 4.10% |
 | PHP | Dead | Dead | Dead | Dead |
 | Ruby | Dead | Dead | Dead | Dead |
 | Python | Dead | Dead | Dead | Dead |
