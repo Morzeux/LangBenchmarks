@@ -106,78 +106,78 @@ to construct tables and graphs.
     
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
-| C | 0.003s | 0.00% | 0.000s | 0.00% |
+| C | 0.003s | 74.54% | 0.000s | 0.00% |
 | Objective-C | 0.003s | 0.00% | 0.001s | 0.00% |
-| C# | 0.004s | 0.00% | 0.000s | 0.00% |
-| Pascal | 0.003s | 57.14% | 0.001s | 0.00% |
-| Java | 0.003s | 14.41% | 0.001s | 0.00% |
-| JavaScript | 0.001s | 34.99% | 0.002s | 0.00% |
-| PHP | 0.157s | 3.05% | 0.123s | 0.83% |
-| Ruby | 0.028s | 3.91% | 0.008s | 0.00% |
-| Python | 0.133s | 8.63% | 0.022s | 3.37% |
-| Perl | 0.109s | 0.90% | 0.052s | 2.63% |
-| Bash | 26.132s | 3.06% | 4.274s | 2.33% |
-| Prolog | 0.055s | 10.53% | 0.006s | 40.03% |
-| Common Lisp | 1.334s | 0.58% | 0.115s | 0.95% |
+| C# | 0.005s | 40.00% | 0.000s | 0.00% |
+| Pascal | 0.003s | 29.81% | 0.000s | 0.00% |
+| Java | 0.003s | 21.08% | 0.001s | 0.00% |
+| JavaScript | 0.001s | 77.46% | 0.002s | 0.00% |
+| PHP | 0.156s | 1.77% | 0.133s | 11.64% |
+| Ruby | 0.027s | 3.31% | 0.007s | 11.07% |
+| Python | 0.131s | 6.14% | 0.022s | 4.55% |
+| Perl | 0.111s | 2.01% | 0.053s | 5.13% |
+| Bash | 26.570s | 3.87% | 4.540s | 14.15% |
+| Prolog | 0.053s | 8.00% | 0.005s | 54.41% |
+| Common Lisp | 1.452s | 4.52% | 0.137s | 16.48% |
 
 ![Bar graph results 1](results/bar_graph1.png)
 
-![Box graph results 1](results/box_graph1.png)
+![Box graph results 1](results/log_bar_graph1.png)
 
 #### Test 2. - Discs 20, Iterations 10000000
     
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
-| C | 0.029s | 4.88% | 0.010s | 0.00% |
-| Objective-C | 0.028s | 1.72% | 0.017s | 2.82% |
-| C# | 0.044s | 0.00% | 0.010s | 7.34% |
-| Pascal | 0.029s | 4.08% | 0.011s | 10.53% |
-| Java | 0.010s | 4.71% | 0.007s | 11.00% |
-| JavaScript | 0.013s | 4.87% | 0.019s | 3.90% |
-| PHP | 1.556s | 4.22% | 4.056s | 1.74% |
-| Ruby | 0.303s | 11.13% | 0.250s | 1.06% |
-| Python | 1.290s | 1.80% | 0.710s | 2.13% |
-| Perl | 1.106s | 1.09% | 1.659s | 1.83% |
+| C | 0.027s | 4.68% | 0.010s | 4.47% |
+| Objective-C | 0.028s | 3.57% | 0.017s | 2.63% |
+| C# | 0.044s | 2.87% | 0.010s | 6.32% |
+| Pascal | 0.028s | 3.19% | 0.010s | 10.95% |
+| Java | 0.011s | 5.75% | 0.007s | 12.78% |
+| JavaScript | 0.012s | 9.13% | 0.019s | 4.08% |
+| PHP | 1.631s | 3.74% | 4.305s | 4.04% |
+| Ruby | 0.316s | 5.22% | 0.279s | 6.37% |
+| Python | 1.512s | 18.63% | 0.774s | 4.74% |
+| Perl | 1.141s | 1.08% | 1.674s | 1.48% |
 | Bash | Dead | Dead | Dead | Dead |
-| Prolog | 0.515s | 2.07% | 0.596s | 2.26% |
-| Common Lisp | 13.800s | 4.40% | 3.768s | 2.20% |
+| Prolog | 0.949s | 58.89% | 1.191s | 59.66% |
+| Common Lisp | 17.246s | 17.91% | 4.957s | 44.24% |
 
 ![Bar graph results 2](results/bar_graph2.png)
 
-![Box graph results 2](results/box_graph2.png)
+![Box graph results 2](results/log_bar_graph2.png)
 
 #### Test 3. - Discs 25, Iterations 100000000
     
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
-| C | 0.286s | 3.26% | 0.318s | 1.17% |
-| Objective-C | 0.289s | 2.73% | 0.575s | 4.65% |
-| C# | 0.449s | 0.88% | 0.324s | 2.43% |
-| Pascal | 0.285s | 1.43% | 0.361s | 2.60% |
-| Java | 0.088s | 8.53% | 0.158s | 3.67% |
-| JavaScript | 0.124s | 1.86% | 0.562s | 1.75% |
+| C | 0.288s | 3.26% | 0.324s | 2.38% |
+| Objective-C | 0.283s | 1.55% | 0.551s | 3.85% |
+| C# | 0.447s | 0.69% | 0.324s | 4.87% |
+| Pascal | 0.287s | 1.69% | 0.367s | 2.00% |
+| Java | 0.084s | 1.06% | 0.158s | 1.52% |
+| JavaScript | 0.125s | 2.99% | 0.573s | 4.04% |
 | PHP | Dead | Dead | Dead | Dead |
-| Ruby | 2.867s | 1.24% | 8.076s | 2.41% |
-| Python | 12.871s | 0.47% | 22.799s | 1.41% |
-| Perl | 11.173s | 1.06% | 54.272s | 2.00% |
+| Ruby | 3.197s | 19.56% | 9.831s | 20.25% |
+| Python | 13.610s | 10.15% | 23.961s | 10.21% |
+| Perl | 12.690s | 17.53% | 63.436s | 13.12% |
 | Bash | Dead | Dead | Dead | Dead |
-| Prolog | 5.132s | 0.45% | 19.532s | 2.41% |
+| Prolog | 6.723s | 27.51% | 20.057s | 1.30% |
 | Common Lisp | Dead | Dead | Dead | Dead |
 
 ![Bar graph results 3](results/bar_graph3.png)
 
-![Box graph results 3](results/box_graph3.png)
+![Box graph results 3](results/log_bar_graph3.png)
 
 #### Test 4. - Discs 30, Iterations 1000000000
     
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
-| C | 2.853s | 0.64% | 10.540s | 5.60% |
-| Objective-C | 2.868s | 0.55% | 17.418s | 0.90% |
-| C# | 4.558s | 1.38% | 10.255s | 0.12% |
-| Pascal | 2.894s | 1.89% | 11.476s | 0.75% |
-| Java | 0.852s | 2.01% | 4.618s | 0.82% |
-| JavaScript | 1.249s | 1.52% | 18.742s | 4.10% |
+| C | 2.881s | 2.00% | 11.838s | 14.88% |
+| Objective-C | 2.926s | 2.83% | 20.272s | 9.46% |
+| C# | 5.765s | 21.54% | 13.811s | 28.42% |
+| Pascal | 3.015s | 5.93% | 15.240s | 19.90% |
+| Java | 0.838s | 3.87% | 5.082s | 11.49% |
+| JavaScript | 1.368s | 12.25% | 21.462s | 8.63% |
 | PHP | Dead | Dead | Dead | Dead |
 | Ruby | Dead | Dead | Dead | Dead |
 | Python | Dead | Dead | Dead | Dead |
@@ -188,5 +188,23 @@ to construct tables and graphs.
 
 ![Bar graph results 4](results/bar_graph4.png)
 
-![Box graph results 4](results/box_graph4.png)
+![Box graph results 4](results/log_bar_graph4.png)
 
+## License
+```
+Programming Languages Benchmark Script.
+Copyright (C) 2014 Stefan Smihla
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+```

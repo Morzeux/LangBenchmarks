@@ -1,12 +1,25 @@
 # -*- coding: utf-8 -*-
 '''
-Created on 24.6.2014
+Programming Languages Benchmark Script.
+Copyright (C) 2014 Stefan Smihla
 
-@author: Morzeux
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
 import pygal
 import os
+import copy
 from evaluator.languages import Language
 from evaluator import config as C
 
@@ -112,6 +125,27 @@ to construct tables and graphs.
 
 """
 
+    LICENCE = """
+## License
+```
+Programming Languages Benchmark Script.
+Copyright (C) 2014 Stefan Smihla
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+```
+"""
+
     RESULTS_DIR = 'results'
 
     @classmethod
@@ -167,25 +201,23 @@ to construct tables and graphs.
                                                               test['disks'],
                                                               test['iters'])
 
-            bar_chart = pygal.Bar(print_values=False, logarithmic=True,
-                                  human_readable=True, legend_at_bottom=True)
-            bar_chart.title = title
+            bar_chart = pygal.Bar(legend_at_bottom=True,
+                                  value_formatter=lambda x: '%.3fs' % x)
+            bar_chart.title = '%s - linear bar chart' % title
             bar_chart.x_labels = [res[0] for res in test['results'] if res[1]]
             bar_chart.y_title = 'Time [s]'
             bar_chart.add('Cycle Test', [res[1]['avg_cycle'] \
                                          for res in test['results'] if res[1]])
             bar_chart.add('Hanoi Test', [res[1]['avg_hanoi'] \
                                          for res in test['results'] if res[1]])
-
-            box_plot = pygal.Box(print_values=False, legend_at_bottom=True)
-            box_plot.title = title
-            for res in test['results']:
-                if res[1]:
-                    box_plot.add(res[0], [res[1]['avg_cycle'],
-                                          res[1]['avg_hanoi']])
+            
+            log_bar_chart = copy.deepcopy(bar_chart)
+            log_bar_chart.title = '%s - logaritmic bar chart' % title
+            log_bar_chart.config.logarithmic=True
 
             graphs.append((cls.save_graph(bar_chart, 'bar_graph%d' % (i + 1)),
-                           cls.save_graph(box_plot, 'box_graph%d' % (i + 1))))
+                           cls.save_graph(log_bar_chart,
+                                          'log_bar_graph%d' % (i + 1))))
 
         return graphs
 
@@ -245,9 +277,10 @@ to construct tables and graphs.
 
         versions = cls.create_version_table(versions)
         system_info = cls.create_system_info_table(system_info)
-        text = '%s%s' % (cls.README_TEMPLATE % (system_info, versions,
+        text = '%s%s%s' % (cls.README_TEMPLATE % (system_info, versions,
                                                 C.EVALUATIONS, C.TIMEOUT),
-                         cls.build_results_section(results))
+                         cls.build_results_section(results),
+                         cls.LICENSE)
 
         with open('README.md', 'w') as flw:
             flw.write(text)

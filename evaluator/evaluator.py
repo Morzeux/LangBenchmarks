@@ -1,7 +1,20 @@
+# -*- coding: utf-8 -*-
 '''
-Created on 8.6.2014
+Programming Languages Benchmark Script.
+Copyright (C) 2014 Stefan Smihla
 
-@author: Stefan Smihla
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
 import platform
@@ -21,7 +34,7 @@ class Evaluator():
     @classmethod
     def _compute_average(cls, values):
         """ Computes average value. """
-        return sum(values) / len(values)
+        return int((sum(values) / len(values)) * 1000) / 1000
 
     @classmethod
     def _compute_deviation(cls, values, average):
@@ -154,7 +167,6 @@ class Evaluator():
                                                  results[-1]['results']))
             print('')
         return results
-
 
     @classmethod
     def cleanup(cls, languages):

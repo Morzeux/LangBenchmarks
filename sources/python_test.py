@@ -1,7 +1,7 @@
 '''
 Created on 20.5.2014
 
-@author: Morzeux
+@author: Stefan Smihla
 '''
 
 import sys
