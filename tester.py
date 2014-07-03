@@ -17,6 +17,12 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
+# TO DO:
+#   - add parameters, usage
+#   - add Haskell, Scala, Clojure
+#   - add prerequisities check
+#   - add Eratosen test
+
 from evaluator.evaluator import Evaluator
 from evaluator.docu_generator import DocuGenerator
 from evaluator.languages import load_languages
@@ -45,6 +51,7 @@ def main():
     Evaluator.compile_languages(languages)
     results = Evaluator.test_languages(languages, C.TESTS,
                                        C.EVALUATIONS, C.TIMEOUT)
+    print('*' * 60)
     DocuGenerator.generate_readme(versions, system_info, results)
     Evaluator.cleanup(languages)
 

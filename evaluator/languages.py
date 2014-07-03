@@ -203,3 +203,13 @@ class PrologLanguage(Language):
 class CLispLanguage(Language):
     """ Common Lisp Language class. """
     pass
+
+class ClojureLanguage(Language):
+    """ Clojure Language class. """
+    
+    def check_version(self, version):
+        return version
+
+class HaskellLanguage(Language):
+    """ Haskell Language class. """
+    pass

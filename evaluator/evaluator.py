@@ -172,7 +172,6 @@ class Evaluator():
     def cleanup(cls, languages):
         """ Removes created binaries. """
 
-        print('*' * 60)
         print('Cleaning up...', end=' ')
         for lang in languages:
             if lang.available:

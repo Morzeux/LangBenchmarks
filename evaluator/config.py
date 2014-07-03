@@ -25,7 +25,7 @@ if platform.system() == 'Windows':
 def safe_path(path):
     """ Convert path to safe path. """
     path = shutil.which(os.path.normpath(path))
-    if path and platform.system() == 'Windows':
+    if path and platform.system() == 'Windows' and os.path.dirname(path):
         return win32api.GetShortPathName(path)
     else:
         return path
@@ -177,3 +177,21 @@ class CLispLanguage(Language):
     VERSION = '%s --version' % PROGRAM
     RUN = '%s sources/clisp_test.lisp' % PROGRAM
     ORDER = 13
+
+class ClojureLanguage(Language):
+    """ Clojure Language config. """
+
+    NAME = 'Clojure'
+    PROGRAM = 'java -cp /Applications/clojure-1.6.0/clojure-1.6.0.jar'
+    VERSION = 'Clojure 1.6.0'
+    RUN = '%s clojure.main sources/clojure_test.clj' % PROGRAM
+    ORDER = 14
+
+class HaskellLanguage(Language):
+    """ Haskell Language config. """
+
+    NAME = 'Haskell'
+    PROGRAM = safe_path('runhaskell')
+    VERSION = 'ghc --version'
+    RUN = '%s sources/haskell_test.hs' % PROGRAM
+    ORDER = 15

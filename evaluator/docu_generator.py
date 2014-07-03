@@ -125,7 +125,7 @@ to construct tables and graphs.
 
 """
 
-    LICENCE = """
+    LICENSE = """
 ## License
 ```
 Programming Languages Benchmark Script.
@@ -271,16 +271,19 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
     @classmethod
     def generate_readme(cls, versions, system_info, results):
         """ Generates README.md in Markdown syntax with all necessary info. """
+        print('Generating README.md...', end=' ')
 
         if not os.path.exists(cls.RESULTS_DIR):
             os.makedirs(cls.RESULTS_DIR)
 
         versions = cls.create_version_table(versions)
         system_info = cls.create_system_info_table(system_info)
-        text = '%s%s%s' % (cls.README_TEMPLATE % (system_info, versions,
+        text = '%s%s%s\n' % (cls.README_TEMPLATE % (system_info, versions,
                                                 C.EVALUATIONS, C.TIMEOUT),
                          cls.build_results_section(results),
-                         cls.LICENSE)
+                         cls.LICENSE.strip())
 
         with open('README.md', 'w') as flw:
             flw.write(text)
+
+        print('OK')
