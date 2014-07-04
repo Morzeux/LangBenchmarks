@@ -138,7 +138,7 @@ class Evaluator():
     @classmethod
     def test_languages(cls, languages, tests, average=1, timeout=None):
         """ Evaluates languages. """
-        bad_output = '  %s:\n    Cycles: Dead\n    Hanoi: Even more dead'
+        bad_output = '  %s:\n    Cycles: Dead (timeout)\n    Hanoi: Dead (timeout)'
         results = []
 
         print('Test results (%d evaluations):' % average)

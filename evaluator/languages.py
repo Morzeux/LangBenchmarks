@@ -145,6 +145,13 @@ class CLanguage(CompiledLanguage):
     """ C Language class. """
     pass
 
+class CppLanguage(CompiledLanguage):
+    """ C++ Language class. """
+
+    def check_version(self, version):
+        """ Checks version of compiler. """
+        return self.run_process(version).splitlines()[1].strip()
+
 class ObjCLanguage(CompiledLanguage):
     """ Objective-C Language class. """
 
@@ -154,6 +161,10 @@ class ObjCLanguage(CompiledLanguage):
 
 class CSLanguage(CompiledLanguage):
     """ C# Language class. """
+    pass
+
+class DLanguage(CompiledLanguage):
+    """ D Language class. """
     pass
 
 class PascalLanguage(CompiledLanguage):
@@ -167,6 +178,14 @@ class PascalLanguage(CompiledLanguage):
 
 class JavaLanguage(CompiledLanguage):
     """ Java Language class. """
+    pass
+
+class ScalaLanguage(Language):
+    """ Scala Language class. """
+    pass
+
+class LuaLanguage(Language):
+    """ Lua Language class. """
     pass
 
 class JavaScriptLanguage(Language):
@@ -210,6 +229,21 @@ class ClojureLanguage(Language):
     def check_version(self, version):
         return version
 
+class FSLanguage(CompiledLanguage):
+    """ F# Language class. """
+    def compile(self):
+        """ Compile source code into binary. """
+
+        result = self.run_process(self.compile_cmd)
+        return 'OK' if len(result) != 2 else 'FAIL: %s' % result
+
 class HaskellLanguage(Language):
     """ Haskell Language class. """
     pass
+
+class SchemeLanguage(Language):
+    """ Scheme Language class. """
+
+    def evaluate(self, args):
+        """ Evaluates script. """
+        return self.run_process('%s --args %s' % (self.run_cmd, args))

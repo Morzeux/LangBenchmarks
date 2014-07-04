@@ -40,8 +40,8 @@ begin
 end;
 
 var
-	disks, sticks: integer;
-	iters: cardinal;
+    disks, sticks: integer;
+    iters: cardinal;
 begin
     Val(ParamStr(1), disks);
     Val(ParamStr(2), sticks);

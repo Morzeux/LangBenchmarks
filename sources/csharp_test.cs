@@ -6,19 +6,19 @@ namespace CSharpTest
     class Program
     {
         static void hanoi(int n, int start, int end, int sticks){
-	        if (n == 0){
-		        return;
-	        }
-	        int temp = sticks - start - end;
-	        hanoi(n - 1, start, temp, sticks);
-	        hanoi(n - 1, temp, start, sticks);
+            if (n == 0){
+                return;
+            }
+            int temp = sticks - start - end;
+            hanoi(n - 1, start, temp, sticks);
+            hanoi(n - 1, temp, start, sticks);
         }
 
         static void cycle(ulong n){
-	        ulong i = 0;
-	        while (i < n){
-		        i += 1;
-	        }
+            ulong i = 0;
+            while (i < n){
+                i += 1;
+            }
         }
 
         static void testHanoi(int n, int sticks)

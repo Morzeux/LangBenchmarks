@@ -19,9 +19,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 # TO DO:
 #   - add parameters, usage
-#   - add Haskell, Scala, Clojure
 #   - add prerequisities check
 #   - add Eratosen test
+#   - add D, F#, Erlang, Lua
 
 from evaluator.evaluator import Evaluator
 from evaluator.docu_generator import DocuGenerator
@@ -34,7 +34,7 @@ Languages Benchmark Script Copyright (C) 2014 Stefan Smihla
 
 This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome to redistribute it
-under certain conditions.
+under certain conditions of GNU General Public License.
 """.strip()
 
 def main():

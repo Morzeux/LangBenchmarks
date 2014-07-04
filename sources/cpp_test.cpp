@@ -1,7 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <time.h>
+#include <iostream>
+#include <iomanip>
+#include <ctime>
 
 void hanoi(int n, int start, int end, int sticks){
     if (n == 0){
@@ -22,18 +21,18 @@ void cycle(unsigned long n){
 void testHanoi(int n, int sticks){
     double startTime = (double)clock();
     hanoi(n, 1, sticks - 1, sticks);
-    printf("Hanoi test passed in %.3fs.\n", (clock() - startTime) / 1000000.0f);
+    std::cout << "Hanoi test passed in " << std::fixed << std::setprecision(3) << (clock() - startTime) / CLOCKS_PER_SEC << "s." << std::endl;
 }
 
 void testCycle(unsigned long n){
     double startTime = (double)clock();
     cycle(n);
-    printf("Cycle test passed in %.3fs.\n", (clock() - startTime) / 1000000.0f);
+    std::cout << "Cycle test passed in " << std::fixed << std::setprecision(3) << (clock() - startTime) / CLOCKS_PER_SEC << "s." << std::endl;
 }
 
 int main(int argc, char *argv[]){
-    printf("C:\n");
-    testHanoi(atoi(argv[1]), atoi(argv[2]));
-    testCycle(strtoul(argv[3], NULL, 10));
+    std::cout << "C++:" << std::endl;
+    testHanoi(std::atoi(argv[1]), std::atoi(argv[2]));
+    testCycle(std::stoul(argv[3], NULL, 10));
     return 0;
 }

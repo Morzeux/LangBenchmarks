@@ -1,7 +1,5 @@
 .project
 .pydevproject
 desktop.ini
-evaluator/__pycache__
 __pycache__
-**/.DS_Store
-externals/
+.DS_Store

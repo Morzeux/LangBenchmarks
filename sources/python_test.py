@@ -1,9 +1,3 @@
-'''
-Created on 20.5.2014
-
-@author: Stefan Smihla
-'''
-
 import sys
 from time import time
 

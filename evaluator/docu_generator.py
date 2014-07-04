@@ -18,7 +18,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
 import pygal
-import os
+import os, sys
 import copy
 from evaluator.languages import Language
 from evaluator import config as C
@@ -37,10 +37,14 @@ programming languages are included as well.
 At now benchmark supports:
 
   * C
+  * C++
   * Objective-C
   * C#
-  * Java
+  * D
   * Pascal
+  * Java
+  * Scala
+  * Lua
   * JavaScript
   * PHP
   * Ruby
@@ -49,8 +53,10 @@ At now benchmark supports:
   * Bash
   * Prolog
   * Common Lisp
-
-More languages like Lua, Haskell, Scala, Clojure are comming soon...
+  * Clojure
+  * F#
+  * Haskell
+  * Scheme
 
 If you have idea how to improve this script, or which language to add, feel
 free to commit it :)
@@ -272,6 +278,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
     def generate_readme(cls, versions, system_info, results):
         """ Generates README.md in Markdown syntax with all necessary info. """
         print('Generating README.md...', end=' ')
+        sys.stdout.flush()
 
         if not os.path.exists(cls.RESULTS_DIR):
             os.makedirs(cls.RESULTS_DIR)
