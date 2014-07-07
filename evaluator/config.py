@@ -17,34 +17,51 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import os, platform
-import shutil, shlex
-from collections import namedtuple
+import os, shutil, shlex
 
 def safe_path(path):
     """ Convert path to safe path. """
     path = shutil.which(os.path.normpath(path))
     return shlex.quote(path) if path else None
 
-EVALUATIONS = 5
-TIMEOUT = 120
-TESTS = [(15, 6, 1000000),
+EVALUATIONS = 2
+TIMEOUT = 2
+TESTS = [#(15, 6, 1000000),
          (20, 6, 10000000),
          (25, 6, 100000000),
          (30, 6, 1000000000)]
 
-INKSCAPE_PATH = safe_path('/Applications/Inkscape.app/Contents/Resources/bin/inkscape')
+INKSCAPE_PATH = safe_path(\
+    '/Applications/Inkscape.app/Contents/Resources/bin/inkscape')
 
 class Language(object):
     """ Default config when not set. """
 
-    NAME = None # Name of language - this name will be displayed in results
-    PROGRAM = None # Path where compiler / interpreter can be found
-    VERSION = None # What command I should execute if I want to check version?
-    COMPILE = None # Command to compile source code
-    RUN = None # Command to execute source code
-    CLEAN = [] # Files which will be deleted after tests finish
-    ORDER = -1 # Order to display
+    NAME = None
+    PROGRAM = None
+    VERSION = None
+    COMPILE = None
+    RUN = None
+    CLEAN = []
+    ORDER = -1
+
+    @classmethod
+    def help(cls):
+        """ Prints config help. """
+        print("You have to specify these params for every evaluated language:")
+        print("")
+        print("NAME - name of language which will be displayed in results")
+        print("PROGRAM - path where compiler / interpreter can be found")
+        print("VERSION - command to detect version of compiler / interpreter")
+        print("COMPILE - command to compile source code")
+        print("RUN - command to execute source code")
+        print("CLEAN - files which will be deleted after finish")
+        print("ORDER - order to display")
+
+    @classmethod
+    def useless_method(cls):
+        """ This method is completely useless. """
+        pass
 
 class CLanguage(Language):
     """ C Language config. """
@@ -74,7 +91,8 @@ class ObjCLanguage(Language):
     NAME = 'Objective-C'
     PROGRAM = safe_path('gcc')
     VERSION = '%s --version' % PROGRAM
-    COMPILE = '%s -o objc_test -Wall -std=c99 sources/objc_test.m -framework Foundation -lobjc' % PROGRAM
+    COMPILE = '%s -o objc_test -Wall -std=c99 sources/objc_test.m\
+        -framework Foundation -lobjc' % PROGRAM
     RUN = './objc_test'
     CLEAN = ['objc_test']
     ORDER = 3
@@ -150,6 +168,15 @@ class JavaScriptLanguage(Language):
     RUN = '%s sources/js_test.js' % PROGRAM
     ORDER = 10
 
+class ActionScriptLanguage(Language):
+    """ ActionScript Language config. """
+
+    NAME = 'ActionScript3'
+    PROGRAM = safe_path('/Applications/redtamarin_0/redshell')
+    VERSION = '%s -Dversion' % PROGRAM
+    RUN = '%s sources/actionscript_test.as --' % PROGRAM
+    ORDER = 11
+
 class PHPLanguage(Language):
     """ PHP Language config. """
 
@@ -157,7 +184,7 @@ class PHPLanguage(Language):
     PROGRAM = safe_path('/usr/local/php5-5.5.13-20140530-105025/bin/php')
     VERSION = '%s --version' % PROGRAM
     RUN = '%s sources/php_test.php' % PROGRAM
-    ORDER = 11
+    ORDER = 12
 
 class RubyLanguage(Language):
     """ Ruby Language config. """
@@ -166,7 +193,7 @@ class RubyLanguage(Language):
     PROGRAM = safe_path('ruby')
     VERSION = '%s --version' % PROGRAM
     RUN = '%s sources/ruby_test.rb' % PROGRAM
-    ORDER = 12
+    ORDER = 13
 
 class PythonLanguage(Language):
     """ Python Language config. """
@@ -175,7 +202,7 @@ class PythonLanguage(Language):
     PROGRAM = safe_path('python3')
     VERSION = '%s --version' % PROGRAM
     RUN = '%s sources/python_test.py' % PROGRAM
-    ORDER = 13
+    ORDER = 14
 
 class PerlLanguage(Language):
     """ Perl Language config. """
@@ -184,7 +211,7 @@ class PerlLanguage(Language):
     PROGRAM = safe_path('perl')
     VERSION = '%s --version' % PROGRAM
     RUN = '%s sources/perl_test.pl' % PROGRAM
-    ORDER = 14
+    ORDER = 15
 
 class BashLanguage(Language):
     """ Bash Language config. """
@@ -193,7 +220,7 @@ class BashLanguage(Language):
     PROGRAM = safe_path('bash')
     VERSION = 'bash --version'
     RUN = 'sources/bash_test.sh'
-    ORDER = 15
+    ORDER = 16
 
 class PrologLanguage(Language):
     """ Prolog Language config. """
@@ -201,9 +228,18 @@ class PrologLanguage(Language):
     NAME = 'Prolog'
     PROGRAM = safe_path('/Applications/SWI-Prolog.app/Contents/MacOS/swipl')
     VERSION = '%s --version' % PROGRAM
-    RUN = '%s sources/prolog_test.pl' % PROGRAM
+    RUN = '%s sources/prolog_test.pl --' % PROGRAM
     CLEAN = ['sources/prolog_test.pl˜']
-    ORDER = 16
+    ORDER = 17
+
+class ErlLanguage(Language):
+    """ Erlang Language config. """
+
+    NAME = 'Erlang'
+    PROGRAM = safe_path('escript')
+    VERSION = '%s +V' % safe_path('erl')
+    RUN = '%s sources/erlang_test.erl' % PROGRAM
+    ORDER = 18
 
 class CLispLanguage(Language):
     """ Common Lisp Language config. """
@@ -212,7 +248,7 @@ class CLispLanguage(Language):
     PROGRAM = safe_path('clisp')
     VERSION = '%s --version' % PROGRAM
     RUN = '%s sources/clisp_test.lisp' % PROGRAM
-    ORDER = 17
+    ORDER = 19
 
 class ClojureLanguage(Language):
     """ Clojure Language config. """
@@ -221,7 +257,7 @@ class ClojureLanguage(Language):
     PROGRAM = 'java -cp /Applications/clojure-1.6.0/clojure-1.6.0.jar'
     VERSION = 'Clojure 1.6.0'
     RUN = '%s clojure.main sources/clojure_test.clj' % PROGRAM
-    ORDER = 18
+    ORDER = 20
 
 class FSLanguage(Language):
     """ F# Language config. """
@@ -231,7 +267,8 @@ class FSLanguage(Language):
     VERSION = '%s --help' % PROGRAM
     COMPILE = '%s sources/fsharp_test.fs' % PROGRAM
     RUN = 'mono fsharp_test.exe'
-    ORDER = 19
+    CLEAN = ['fsharp_test.exe']
+    ORDER = 21
 
 class HaskellLanguage(Language):
     """ Haskell Language config. """
@@ -240,13 +277,15 @@ class HaskellLanguage(Language):
     PROGRAM = safe_path('runhaskell')
     VERSION = 'ghc --version'
     RUN = '%s sources/haskell_test.hs' % PROGRAM
-    ORDER = 20
+    ORDER = 22
 
 class SchemeLanguage(Language):
     """ Scheme Language config. """
 
     NAME = 'Scheme'
-    PROGRAM = safe_path('/Applications/MIT:GNU Scheme.app/Contents/Resources/mit-scheme')
+    PROGRAM = safe_path(\
+        '/Applications/MIT:GNU Scheme.app/Contents/Resources/mit-scheme')
     VERSION = '%s --version' % PROGRAM
-    RUN = '%s --quiet --load externals/format.scm < sources/scheme_test.scm' % PROGRAM
-    ORDER = 21
+    RUN = '%s --quiet --load externals/format.scm < sources/scheme_test.scm \
+        --args' % PROGRAM
+    ORDER = 23

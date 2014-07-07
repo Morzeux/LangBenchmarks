@@ -19,16 +19,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 # TO DO:
 #   - add parameters, usage
-#   - add prerequisities check
 #   - add Eratosen test
-#   - add D, F#, Erlang, Lua
 
 from evaluator.evaluator import Evaluator
 from evaluator.docu_generator import DocuGenerator
 from evaluator.languages import load_languages
 from evaluator import config as C
 
-def license():
+def get_license():
+    """ Returns license of program. """
     return """
 Languages Benchmark Script Copyright (C) 2014 Stefan Smihla
 
@@ -39,7 +38,7 @@ under certain conditions of GNU General Public License.
 
 def main():
     """ Main tester class. """
-    print(license())
+    print(get_license())
     print('')
 
     languages = load_languages()

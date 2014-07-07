@@ -23,8 +23,6 @@ import inspect
 from evaluator import config
 from threading import Thread
 
-SOURCE_DIR = 'sources'
-
 def load_languages():
     """ Loads languages from configuration file. """
 
@@ -32,8 +30,8 @@ def load_languages():
     for name, lang in sorted(inspect.getmembers(config, inspect.isclass),
                              key=lambda x: x[1].ORDER):
 
-        if name not in ['CompiledLanguage', 'Language']:
-            lang_class = globals().get(name)
+        if name not in ['Language']:
+            lang_class = globals().get(name) or Language
             languages.append(lang_class(lang))
 
     return languages
@@ -82,15 +80,25 @@ class Language(object):
     def run_process(cls, command):
         """ Run process and saves it output. """
         cls.set_process(subprocess.Popen(command, **cls.build_proc_params()))
-        cls.set_output(cls.get_process().stdout.read().strip())
+        cls.set_output(cls.get_process().communicate()[0].strip())
         return cls.get_stdout()
+
+    @classmethod
+    def force_kill_process(cls, process):
+        """ Kills process and its childs. """
+        if platform.system() == 'Windows':
+                subprocess.Popen('TASKKILL /F /PID %s /T' \
+                                 % process.pid,
+                                 stdout=subprocess.DEVNULL,
+                                 stderr=subprocess.DEVNULL)
+        else:
+            os.killpg(process.pid, signal.SIGTERM)
 
     def __init__(self, config_lang):
         self.name = config_lang.NAME
         self.program = config_lang.PROGRAM
-        self.available = True if self.program else False
 
-        if not self.available:
+        if not self.program:
             return
 
         self.version_cmd = config_lang.VERSION
@@ -99,9 +107,22 @@ class Language(object):
         self.clean = config_lang.CLEAN
         self.version = self.check_version(config_lang.VERSION)
 
+    def is_available(self):
+        """ Checks if compiler is available """
+        return True if self.program else False
+
+    def is_compilable(self):
+        """ Checks if language is compilable. """
+        return True if self.compile_cmd else False
+
     def check_version(self, version):
         """ Checks version of compiler. """
         return self.run_process(version).splitlines()[0].strip()
+
+    def compile(self):
+        """ Compile source code into binary. """
+        result = self.run_process(self.compile_cmd)
+        return 'OK' if not result else 'FAIL: %s' % result
 
     def evaluate(self, args):
         """ Evaluates script. """
@@ -113,18 +134,12 @@ class Language(object):
         evaluation = Thread(target=self.evaluate, args=(args, ))
         evaluation.start()
         evaluation.join(timeout)
-        if self.get_stdout():
-            return self.get_stdout()
-        else:
-            if platform.system() == 'Windows':
-                subprocess.Popen('TASKKILL /F /PID %s /T' \
-                                 % self.get_process().pid,
-                                 stdout=subprocess.DEVNULL,
-                                 stderr=subprocess.DEVNULL)
-            else:
-                os.killpg(self.get_process().pid, signal.SIGTERM)
+        if evaluation.isAlive():
+            self.force_kill_process(self.get_process())
             self.set_process(None)
             return '%s:\nKilled' % self.name
+        else:
+            return self.get_stdout()
 
     def clean_up(self):
         """ Cleans up compiled files. """
@@ -132,42 +147,23 @@ class Language(object):
             if os.path.isfile(filename):
                 os.remove(filename)
 
-class CompiledLanguage(Language):
-    """ Class for compiled languages. """
+########## Languages that needs to run slighly different ##########
 
-    def compile(self):
-        """ Compile source code into binary. """
-
-        result = self.run_process(self.compile_cmd)
-        return 'OK' if not result else 'FAIL: %s' % result
-
-class CLanguage(CompiledLanguage):
-    """ C Language class. """
-    pass
-
-class CppLanguage(CompiledLanguage):
+class CppLanguage(Language):
     """ C++ Language class. """
 
     def check_version(self, version):
         """ Checks version of compiler. """
         return self.run_process(version).splitlines()[1].strip()
 
-class ObjCLanguage(CompiledLanguage):
+class ObjCLanguage(Language):
     """ Objective-C Language class. """
 
     def check_version(self, version):
         """ Checks version of compiler. """
         return self.run_process(version).splitlines()[1].strip()
 
-class CSLanguage(CompiledLanguage):
-    """ C# Language class. """
-    pass
-
-class DLanguage(CompiledLanguage):
-    """ D Language class. """
-    pass
-
-class PascalLanguage(CompiledLanguage):
+class PascalLanguage(Language):
     """ Pascal Language class. """
 
     def compile(self):
@@ -176,74 +172,16 @@ class PascalLanguage(CompiledLanguage):
         return 'OK' if len(result.splitlines()) in [6, 7] \
                     else 'FAIL:\n%s' % result
 
-class JavaLanguage(CompiledLanguage):
-    """ Java Language class. """
-    pass
-
-class ScalaLanguage(Language):
-    """ Scala Language class. """
-    pass
-
-class LuaLanguage(Language):
-    """ Lua Language class. """
-    pass
-
-class JavaScriptLanguage(Language):
-    """ JavaScript Language class. """
-    pass
-
-class PHPLanguage(Language):
-    """ PHP Language class. """
-    pass
-
-class PerlLanguage(Language):
-    """ Perl Language class. """
-    pass
-
-class BashLanguage(Language):
-    """ Bash Language class. """
-    pass
-
-class RubyLanguage(Language):
-    """ Ruby Language class. """
-    pass
-
-class PythonLanguage(Language):
-    """ Python Language class. """
-    pass
-
-class PrologLanguage(Language):
-    """ Prolog Language class. """
-
-    def evaluate(self, args):
-        """ Evaluates script. """
-        return self.run_process('%s -- %s' % (self.run_cmd, args))
-
-class CLispLanguage(Language):
-    """ Common Lisp Language class. """
-    pass
-
 class ClojureLanguage(Language):
     """ Clojure Language class. """
-    
+
     def check_version(self, version):
         return version
 
-class FSLanguage(CompiledLanguage):
+class FSLanguage(Language):
     """ F# Language class. """
+
     def compile(self):
         """ Compile source code into binary. """
-
         result = self.run_process(self.compile_cmd)
         return 'OK' if len(result) != 2 else 'FAIL: %s' % result
-
-class HaskellLanguage(Language):
-    """ Haskell Language class. """
-    pass
-
-class SchemeLanguage(Language):
-    """ Scheme Language class. """
-
-    def evaluate(self, args):
-        """ Evaluates script. """
-        return self.run_process('%s --args %s' % (self.run_cmd, args))

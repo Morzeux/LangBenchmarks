@@ -46,12 +46,14 @@ At now benchmark supports:
   * Scala
   * Lua
   * JavaScript
+  * ActionScript
   * PHP
   * Ruby
   * Python
   * Perl
   * Bash
   * Prolog
+  * Erlang
   * Common Lisp
   * Clojure
   * F#
@@ -216,10 +218,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                                          for res in test['results'] if res[1]])
             bar_chart.add('Hanoi Test', [res[1]['avg_hanoi'] \
                                          for res in test['results'] if res[1]])
-            
+
             log_bar_chart = copy.deepcopy(bar_chart)
             log_bar_chart.title = '%s - logaritmic bar chart' % title
-            log_bar_chart.config.logarithmic=True
+            log_bar_chart.config.logarithmic = True
 
             graphs.append((cls.save_graph(bar_chart, 'bar_graph%d' % (i + 1)),
                            cls.save_graph(log_bar_chart,
@@ -277,6 +279,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
     @classmethod
     def generate_readme(cls, versions, system_info, results):
         """ Generates README.md in Markdown syntax with all necessary info. """
+        if not C.INKSCAPE_PATH:
+            print('Inkscape not found. README.md was skipped.')
+            return
+
         print('Generating README.md...', end=' ')
         sys.stdout.flush()
 
@@ -286,9 +292,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
         versions = cls.create_version_table(versions)
         system_info = cls.create_system_info_table(system_info)
         text = '%s%s%s\n' % (cls.README_TEMPLATE % (system_info, versions,
-                                                C.EVALUATIONS, C.TIMEOUT),
-                         cls.build_results_section(results),
-                         cls.LICENSE.strip())
+                                                    C.EVALUATIONS, C.TIMEOUT),
+                             cls.build_results_section(results),
+                             cls.LICENSE.strip())
 
         with open('README.md', 'w') as flw:
             flw.write(text)
