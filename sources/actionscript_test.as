@@ -34,6 +34,6 @@ function testCycle(n:uint):void {
     trace("Cycle test passed in " + formatTime(startTime, new Date().getTime(), 3) + "s.");
 }
 
-trace("ActionScript:");
+trace("ActionScript3:");
 testHanoi(int(sys.argv[0]), int(sys.argv[1]));
 testCycle(uint(sys.argv[2]));

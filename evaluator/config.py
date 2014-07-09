@@ -17,16 +17,15 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import os, shutil, shlex
+from evaluator.process_manager import ProcessManager
 
 def safe_path(path):
-    """ Convert path to safe path. """
-    path = shutil.which(os.path.normpath(path))
-    return shlex.quote(path) if path else None
+    """ Returns converted and quoted path. """
+    return ProcessManager.safe_path(path)
 
-EVALUATIONS = 2
-TIMEOUT = 2
-TESTS = [#(15, 6, 1000000),
+EVALUATIONS = 5
+TIMEOUT = 120
+TESTS = [(15, 6, 1000000),
          (20, 6, 10000000),
          (25, 6, 100000000),
          (30, 6, 1000000000)]

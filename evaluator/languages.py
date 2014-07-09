@@ -17,82 +17,31 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import os, subprocess, signal
-import platform
+import os
 import inspect
+
+from evaluator.process_manager import ProcessManager
 from evaluator import config
-from threading import Thread
 
 def load_languages():
     """ Loads languages from configuration file. """
 
-    languages = []
-    for name, lang in sorted(inspect.getmembers(config, inspect.isclass),
-                             key=lambda x: x[1].ORDER):
+    def is_language_cls(class_obj):
+        """ Checks if concrete Language class. """
+        return inspect.getmro(class_obj)[1].__name__ == 'Language'
 
-        if name not in ['Language']:
-            lang_class = globals().get(name) or Language
-            languages.append(lang_class(lang))
+    languages = []
+    members = [cls for cls in inspect.getmembers(config, inspect.isclass)]
+    for name, lang in sorted([cls for cls in members \
+        if is_language_cls(cls[1])], key=lambda x: x[1].ORDER):
+
+        lang_class = globals().get(name) or Language
+        languages.append(lang_class(lang))
 
     return languages
 
 class Language(object):
     """ Abstract language class. """
-
-    _stdout = ''
-    _process = None
-
-    @classmethod
-    def set_output(cls, stdout):
-        """ Sets output value. """
-        cls._stdout = stdout
-
-    @classmethod
-    def get_stdout(cls):
-        """ Returns output value. """
-        return cls._stdout
-
-    @classmethod
-    def set_process(cls, process):
-        """ Sets process. """
-        cls._process = process
-
-    @classmethod
-    def get_process(cls):
-        """ Returns process value. """
-        return cls._process
-
-    @classmethod
-    def build_proc_params(cls):
-        """ Build args depended on OS. """
-
-        params = {'universal_newlines': True,
-                  'stderr': subprocess.STDOUT,
-                  'stdout': subprocess.PIPE,
-                  'shell': True}
-
-        if platform.system() != 'Windows':
-            params['preexec_fn'] = os.setsid
-
-        return params
-
-    @classmethod
-    def run_process(cls, command):
-        """ Run process and saves it output. """
-        cls.set_process(subprocess.Popen(command, **cls.build_proc_params()))
-        cls.set_output(cls.get_process().communicate()[0].strip())
-        return cls.get_stdout()
-
-    @classmethod
-    def force_kill_process(cls, process):
-        """ Kills process and its childs. """
-        if platform.system() == 'Windows':
-                subprocess.Popen('TASKKILL /F /PID %s /T' \
-                                 % process.pid,
-                                 stdout=subprocess.DEVNULL,
-                                 stderr=subprocess.DEVNULL)
-        else:
-            os.killpg(process.pid, signal.SIGTERM)
 
     def __init__(self, config_lang):
         self.name = config_lang.NAME
@@ -106,6 +55,11 @@ class Language(object):
         self.run_cmd = config_lang.RUN
         self.clean = config_lang.CLEAN
         self.version = self.check_version(config_lang.VERSION)
+
+    @classmethod
+    def run_process(cls, command, timeout=None):
+        """ Runs safely process. """
+        return ProcessManager.run_process(command, timeout)
 
     def is_available(self):
         """ Checks if compiler is available """
@@ -124,22 +78,9 @@ class Language(object):
         result = self.run_process(self.compile_cmd)
         return 'OK' if not result else 'FAIL: %s' % result
 
-    def evaluate(self, args):
+    def evaluate(self, args, timeout=None):
         """ Evaluates script. """
-        return self.run_process('%s %s' % (self.run_cmd, args))
-
-    def evaluate_with_timeout(self, args, timeout=None):
-        """ Kills process after timeout. """
-        self.set_output(None)
-        evaluation = Thread(target=self.evaluate, args=(args, ))
-        evaluation.start()
-        evaluation.join(timeout)
-        if evaluation.isAlive():
-            self.force_kill_process(self.get_process())
-            self.set_process(None)
-            return '%s:\nKilled' % self.name
-        else:
-            return self.get_stdout()
+        return self.run_process('%s %s' % (self.run_cmd, args), timeout)
 
     def clean_up(self):
         """ Cleans up compiled files. """

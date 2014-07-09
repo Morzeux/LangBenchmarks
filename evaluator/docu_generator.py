@@ -20,7 +20,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 import pygal
 import os, sys
 import copy
-from evaluator.languages import Language
+from evaluator.process_manager import ProcessManager
 from evaluator import config as C
 
 class DocuGenerator(object):
@@ -46,7 +46,7 @@ At now benchmark supports:
   * Scala
   * Lua
   * JavaScript
-  * ActionScript
+  * ActionScript3
   * PHP
   * Ruby
   * Python
@@ -99,6 +99,8 @@ def hanoi(n, start, dest, sticks):
 
 Simply clone this repository. To set proper configuration for evaluated
 languages, you need to edit `config.py` module located in `evaluator` package.
+LangBenchamrk script is written in Python 3.4.x and there is dependency for
+third-party pygal modul. This is need only to generate README.md file.
 
 ## Results
 
@@ -163,8 +165,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
         svg_output = '%s/%s.svg' % (cls.RESULTS_DIR, filename)
         png_output = '%s/%s.png' % (cls.RESULTS_DIR, filename)
         graph.render_to_file(svg_output)
-        Language.run_process('%s -f %s -e %s' % (C.INKSCAPE_PATH, svg_output,
-                                                 png_output))
+        ProcessManager.run_process('%s -f %s -e %s' % (C.INKSCAPE_PATH,
+                                                       svg_output,
+                                                       png_output))
+
         os.remove(svg_output)
         return png_output
 

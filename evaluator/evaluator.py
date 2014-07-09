@@ -157,9 +157,8 @@ class Evaluator():
                 if lang.is_available():
                     output = []
                     for _ in range(average):
-                        output.append(lang.evaluate_with_timeout(params,
-                                                                 timeout))
-                        if 'Killed' in output[-1]:
+                        output.append(lang.evaluate(params, timeout))
+                        if output[-1] is None:
                             results[-1]['results'].append((lang.name, {}))
                             print(bad_output % lang.name)
                             break
