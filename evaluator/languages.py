@@ -44,6 +44,7 @@ class Language(object):
     """ Abstract language class. """
 
     def __init__(self, config_lang):
+        self.skip = False
         self.name = config_lang.NAME
         self.program = config_lang.PROGRAM
 
@@ -60,6 +61,9 @@ class Language(object):
     def run_process(cls, command, timeout=None):
         """ Runs safely process. """
         return ProcessManager.run_process(command, timeout)
+
+    def is_skipped(self):
+        return self.skip
 
     def is_available(self):
         """ Checks if compiler is available """

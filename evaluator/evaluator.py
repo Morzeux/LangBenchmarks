@@ -154,12 +154,15 @@ class Evaluator():
                             'iters': test[2], 'results': []})
 
             for lang in languages:
-                if lang.is_available():
+                if lang.is_skipped():
+                    results[-1]['results'].append((lang.name, {}))
+                elif lang.is_available():
                     output = []
                     for _ in range(average):
                         output.append(lang.evaluate(params, timeout))
                         if output[-1] is None:
                             results[-1]['results'].append((lang.name, {}))
+                            lang.skip = True
                             print(bad_output % lang.name)
                             break
                     else:
