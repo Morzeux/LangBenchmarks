@@ -47,6 +47,7 @@ At now benchmark supports:
   * Lua
   * JavaScript
   * ActionScript3
+  * Swift
   * PHP
   * Ruby
   * Python

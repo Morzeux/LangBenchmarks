@@ -63,6 +63,7 @@ class Language(object):
         return ProcessManager.run_process(command, timeout)
 
     def is_skipped(self):
+        """ Checks if language was previously skipped. """
         return self.skip
 
     def is_available(self):

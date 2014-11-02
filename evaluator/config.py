@@ -25,10 +25,12 @@ def safe_path(path):
 
 EVALUATIONS = 5
 TIMEOUT = 120
-TESTS = [(15, 6, 1000000),
-         (20, 6, 10000000),
-         (25, 6, 100000000),
-         (30, 6, 1000000000)]
+TESTS = [
+    (15, 6, 1000000),
+    (20, 6, 10000000),
+    (25, 6, 100000000),
+    (30, 6, 1000000000)
+]
 
 INKSCAPE_PATH = safe_path(\
     '/Applications/Inkscape.app/Contents/Resources/bin/inkscape')
@@ -282,9 +284,21 @@ class SchemeLanguage(Language):
     """ Scheme Language config. """
 
     NAME = 'Scheme'
-    PROGRAM = safe_path(\
-        '/Applications/MIT:GNU Scheme.app/Contents/Resources/mit-scheme')
+    PROGRAM = safe_path(
+        '/Applications/MIT:GNU Scheme.app/Contents/Resources/mit-scheme'
+    )
     VERSION = '%s --version' % PROGRAM
     RUN = '%s --quiet --load externals/format.scm < sources/scheme_test.scm \
         --args' % PROGRAM
     ORDER = 23
+
+class SwiftLanguage(Language):
+    """ Swift Language config. """
+
+    NAME = 'Swift'
+    PROGRAM = safe_path(
+        '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift'
+    )
+    VERSION = '%s --version' % PROGRAM
+    RUN = '%s sources/swift_test.swift' % PROGRAM
+    ORDER = 24
