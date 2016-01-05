@@ -1,0 +1,21 @@
+# Installation guide. I have installed all of these on Arch Linux
+
+1. First install all required packages listed in 'arch-packages.txt' file.
+Most of them are in standard pacman repository and few of them are
+located in AUR repository.
+
+2. Recommended is creating virtualenv for Python and then install all packages
+listed in 'pip-requirements.txt'
+$ virtualenv lang-benchmarks
+$ source lang-benchmarks/bin/activate
+$ pip install -r pip-requirements.txt
+
+3. For ActionScript 3 there is required to download redshell from Red Tamarin project and make sure to put it into
+PATH variable.
+download link -> http://download.redtamarin.com/
+
+4. Install svgexport to convert svg files into png.
+$ npm install svgexport -g
+
+4. In activated virtualenv run:
+$ python tester.py

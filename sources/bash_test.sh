@@ -18,17 +18,17 @@ function cycle {
 }
 
 function testHanoi {
-    start=`python -c 'import time; print time.time()'`
+    start=`python -c 'import time; print(time.time())'`
     hanoi $1 1 $[$2-1] $2
-    end=`python -c 'import time; print time.time()'`
+    end=`python -c 'import time; print(time.time())'`
     diff=$(echo "$end - $start" | bc)
     printf "Hanoi test passed in %.3fs.\n" $diff
 }
 
 function testCycle {
-    start=`python -c 'import time; print time.time()'`
+    start=`python -c 'import time; print(time.time())'`
     cycle $1
-    end=`python -c 'import time; print time.time()'`
+    end=`python -c 'import time; print(time.time())'`
     diff=$(echo "$end - $start" | bc)
     printf "Cycle test passed in %.3fs.\n" $diff
 }

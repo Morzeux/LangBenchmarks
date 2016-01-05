@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-'''
+"""
 Programming Languages Benchmark Script.
-Copyright (C) 2014 Stefan Smihla
+Copyright (C) 2014-2016 Stefan Smihla
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,26 +15,24 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
-'''
-
-# TO DO:
-#   - add parameters, usage
-#   - add Eratosen test
+"""
 
 from evaluator.evaluator import Evaluator
 from evaluator.docu_generator import DocuGenerator
 from evaluator.languages import load_languages
 from evaluator import config as C
 
+
 def get_license():
     """ Returns license of program. """
     return """
-Languages Benchmark Script Copyright (C) 2014 Stefan Smihla
+Languages Benchmark Script Copyright (C) 2014-2016 Stefan Smihla
 
 This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome to redistribute it
 under certain conditions of GNU General Public License.
 """.strip()
+
 
 def main():
     """ Main tester class. """
@@ -54,5 +52,5 @@ def main():
     DocuGenerator.generate_readme(versions, system_info, results)
     Evaluator.cleanup(languages)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

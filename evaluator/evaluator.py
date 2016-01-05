@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-'''
+"""
 Programming Languages Benchmark Script.
-Copyright (C) 2014 Stefan Smihla
+Copyright (C) 2014-2016 Stefan Smihla
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,14 +15,16 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
-'''
+"""
 
-import platform
-import psutil
 import math
 import re
+import platform
+import psutil
+from evaluator.cpuinfo import get_processor_name
 
-class Evaluator():
+
+class Evaluator(object):
     """ Static helper class to evaluate languages. """
 
     results = {}
@@ -117,10 +119,11 @@ class Evaluator():
         text = 'System:\n'
         text += '*' * 60 + '\n'
         text += 'Operating System: %s\n' % platform.platform()
-        text += 'Processor: %s\n' % platform.processor()
-        text += 'Total memory: %.3fGB\n' % (float(psutil.
-                                                  phymem_usage().
-                                                  total) / 1024**3)
+        text += 'Processor: %s\n' % get_processor_name()
+        text += 'Total memory: %.3fGB\n' % (
+            float(psutil.virtual_memory().total) / 1024**3
+        )
+
         return text
 
     @classmethod

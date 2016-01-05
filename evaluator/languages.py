@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-'''
+"""
 Programming Languages Benchmark Script.
-Copyright (C) 2014 Stefan Smihla
+Copyright (C) 2014-2016 Stefan Smihla
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,13 +15,14 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
-'''
+"""
 
 import os
 import inspect
 
 from evaluator.process_manager import ProcessManager
 from evaluator import config
+
 
 def load_languages():
     """ Loads languages from configuration file. """
@@ -32,13 +33,13 @@ def load_languages():
 
     languages = []
     members = [cls for cls in inspect.getmembers(config, inspect.isclass)]
-    for name, lang in sorted([cls for cls in members \
-        if is_language_cls(cls[1])], key=lambda x: x[1].ORDER):
-
+    members = sorted([cls for cls in members if is_language_cls(cls[1])], key=lambda x: x[1].ORDER)
+    for name, lang in members:
         lang_class = globals().get(name) or Language
         languages.append(lang_class(lang))
 
     return languages
+
 
 class Language(object):
     """ Abstract language class. """
@@ -93,7 +94,8 @@ class Language(object):
             if os.path.isfile(filename):
                 os.remove(filename)
 
-########## Languages that needs to run slighly different ##########
+#  ######### Languages that needs to run slighly different ##########
+
 
 class CppLanguage(Language):
     """ C++ Language class. """
@@ -102,6 +104,7 @@ class CppLanguage(Language):
         """ Checks version of compiler. """
         return self.run_process(version).splitlines()[1].strip()
 
+
 class ObjCLanguage(Language):
     """ Objective-C Language class. """
 
@@ -109,20 +112,22 @@ class ObjCLanguage(Language):
         """ Checks version of compiler. """
         return self.run_process(version).splitlines()[1].strip()
 
+
 class PascalLanguage(Language):
     """ Pascal Language class. """
 
     def compile(self):
         """ Compiles Pascal file to binary. """
         result = self.run_process(self.compile_cmd)
-        return 'OK' if len(result.splitlines()) in [6, 7] \
-                    else 'FAIL:\n%s' % result
+        return 'OK' if 'lines compiled, ' in result else 'FAIL:\n%s' % result
+
 
 class ClojureLanguage(Language):
     """ Clojure Language class. """
 
     def check_version(self, version):
         return version
+
 
 class FSLanguage(Language):
     """ F# Language class. """

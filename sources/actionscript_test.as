@@ -1,4 +1,4 @@
-var sys:Class = getClassByName("avmplus.System");
+import shell.Program;
 
 function cycle(n:uint):void {
     var i:uint = 0;
@@ -35,5 +35,5 @@ function testCycle(n:uint):void {
 }
 
 trace("ActionScript3:");
-testHanoi(int(sys.argv[0]), int(sys.argv[1]));
-testCycle(uint(sys.argv[2]));
+testHanoi(int(Program.argv[0]), int(Program.argv[1]));
+testCycle(uint(Program.argv[2]));

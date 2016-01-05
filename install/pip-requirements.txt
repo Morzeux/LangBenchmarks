@@ -1,0 +1,5 @@
+# Pip packages needed for LangBenchmarks project.
+
+psutil==3.3.0
+pygal==2.0.12
+pylint==1.5.2

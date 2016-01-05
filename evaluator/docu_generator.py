@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-'''
+"""
 Programming Languages Benchmark Script.
-Copyright (C) 2014 Stefan Smihla
+Copyright (C) 2014-2016 Stefan Smihla
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,13 +15,15 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
-'''
+"""
 
-import pygal
-import os, sys
+import os
+import sys
 import copy
+import pygal
 from evaluator.process_manager import ProcessManager
 from evaluator import config as C
+
 
 class DocuGenerator(object):
     """ This module generates README.md for GitHub."""
@@ -48,6 +50,7 @@ At now benchmark supports:
   * JavaScript
   * ActionScript3
   * Swift
+  * Go
   * PHP
   * Ruby
   * Python
@@ -140,7 +143,7 @@ to construct tables and graphs.
 ## License
 ```
 Programming Languages Benchmark Script.
-Copyright (C) 2014 Stefan Smihla
+Copyright (C) 2014-2016 Stefan Smihla
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -166,9 +169,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
         svg_output = '%s/%s.svg' % (cls.RESULTS_DIR, filename)
         png_output = '%s/%s.png' % (cls.RESULTS_DIR, filename)
         graph.render_to_file(svg_output)
-        ProcessManager.run_process('%s -f %s -e %s' % (C.INKSCAPE_PATH,
-                                                       svg_output,
-                                                       png_output))
+        ProcessManager.run_process('%s %s %s' % (C.SVG_CONVERT_TOOL, svg_output, png_output))
 
         os.remove(svg_output)
         return png_output
@@ -200,8 +201,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                               get_value(lang, 'avg_hanoi'),
                               get_value(lang, 'std_hanoi')])
 
-            table = '\n'.join(['| %s |' % ' | '.join(row) for row in table])
-            tables.append(table.strip())
+            tables.append(
+                '\n'.join(['| %s |' % ' | '.join(row) for row in table]).strip()
+            )
         return tables
 
     @classmethod
@@ -284,8 +286,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
     @classmethod
     def generate_readme(cls, versions, system_info, results):
         """ Generates README.md in Markdown syntax with all necessary info. """
-        if not C.INKSCAPE_PATH:
-            print('Inkscape not found. README.md was skipped.')
+        if not C.SVG_CONVERT_TOOL:
+            print('Svg convert tool not found. README.md was skipped.')
             return
 
         print('Generating README.md...', end=' ')

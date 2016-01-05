@@ -1,3 +1,5 @@
+#include <cstdlib>
+#include <string>
 #include <iostream>
 #include <iomanip>
 #include <ctime>
