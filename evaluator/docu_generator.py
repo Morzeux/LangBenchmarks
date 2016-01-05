@@ -101,16 +101,14 @@ def hanoi(n, start, dest, sticks):
 
 ## Installation
 
-Simply clone this repository. To set proper configuration for evaluated
-languages, you need to edit `config.py` module located in `evaluator` package.
-LangBenchamrk script is written in Python 3.4.x and there is dependency for
-third-party pygal modul. This is need only to generate README.md file.
+Simply clone this repository. All other instructions, packages and etc. are described in
+install/install.txt file. Recommended operation system is Arch based distribution which contains
+almost every required language.
 
 ## Results
 
-Here are my results obtained on my Apple Machine. Reason I used Apple was
-environment, where I could use together C# (through Mono), Objective-C,
-Bash and where I would use Swift in future.
+Here are my results obtained on my virtual Arch Linux Machine. Arch provides rich bleeding edge
+repository which is well suitable for maintaining fresh versions of languages.
 
 ### Environment
 
