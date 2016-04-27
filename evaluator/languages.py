@@ -113,6 +113,14 @@ class ObjCLanguage(Language):
         return self.run_process(version).splitlines()[1].strip()
 
 
+class PypyLanguage(Language):
+    """ Pypy Language config. """
+
+    def check_version(self, version):
+        """ Checks version of compiler. """
+        return self.run_process(version).splitlines()[-1].strip().strip('[]')
+
+
 class PascalLanguage(Language):
     """ Pascal Language class. """
 

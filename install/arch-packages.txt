@@ -1,8 +1,8 @@
 # These packages are required to install in UNIX architecture.
 # I have used Arch Linux.
 #
-sudo pacman -S python python-virtualenv python-pip bc npm
+sudo pacman -S python python-virtualenv python-pip bc npm pypy
 sudo pacman -S gcc gcc-libs llvm-libs gcc-objc gnustep-base lua jdk8-openjdk ruby python perl
 sudo pacman -S mono dlang-dmd fpc scala nodejs php swi-prolog erlang clisp clojure ghc
 
-yaourt -Sab fsharp mit-scheme swift-bin
+yaourt -Sab fsharp mit-scheme swift-development-bin

@@ -53,6 +53,7 @@ At now benchmark supports:
   * Go
   * PHP
   * Ruby
+  * Pypy
   * Python
   * Perl
   * Bash

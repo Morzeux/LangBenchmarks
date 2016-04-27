@@ -232,6 +232,16 @@ class PythonLanguage(Language):
     ORDER = 15
 
 
+class PypyLanguage(Language):
+    """ Pypy Language config. """
+
+    NAME = 'Pypy'
+    PROGRAM = safe_path('pypy')
+    VERSION = '%s --version' % PROGRAM
+    RUN = '%s sources/pypy_test.py' % PROGRAM
+    ORDER = 15
+
+
 class PerlLanguage(Language):
     """ Perl Language config. """
 
