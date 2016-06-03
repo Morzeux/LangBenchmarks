@@ -85,7 +85,7 @@ repository which is well suitable for maintaining fresh versions of languages.
 
 | Info |  |
 | :-----: | :-----: |
-| Operating System | Linux-4.5.1-1-ARCH-x86_64-with-arch |
+| Operating System | Linux-4.5.4-1-ARCH-x86_64-with-arch |
 | Processor | Intel(R) Core(TM) i5-4200M CPU @ 2.50GHz |
 | Total memory | 3.864GB |
 
@@ -93,23 +93,23 @@ repository which is well suitable for maintaining fresh versions of languages.
 
 | Language | Available Version |
 | :-----: | :-----: |
-| C | cc (GCC) 5.3.0 |
-| C++ | Copyright (C) 2015 Free Software Foundation, Inc. |
-| Objective-C | Copyright (C) 2015 Free Software Foundation, Inc. |
+| C | cc (GCC) 6.1.1 20160501 |
+| C++ | Copyright (C) 2016 Free Software Foundation, Inc. |
+| Objective-C | Copyright (C) 2016 Free Software Foundation, Inc. |
 | C# | Mono C# compiler version 4.4.0.0 |
 | D | DMD64 D Compiler v2.071.0 |
 | Pascal | Free Pascal Compiler version 3.0.0 [2015/11/26] for x86_64 |
 | Java | javac 1.8.0_92 |
 | Scala | Scala code runner version 2.11.8 -- Copyright 2002-2016, LAMP/EPFL |
 | Lua | Lua 5.3.2  Copyright (C) 1994-2015 Lua.org, PUC-Rio |
-| JavaScript (node.js) | v6.0.0 |
+| JavaScript (node.js) | v6.2.1 |
 | ActionScript3 | shell 2.1 release build cyclone |
-| Go | Not available |
-| PHP | PHP 7.0.6 (cli) (built |  Apr 27 2016 19 | 14 | 24) ( NTS ) |
-| Ruby | ruby 2.3.0p0 (2015-12-25 revision 53290) [x86_64-linux] |
-| Pypy | PyPy 5.1.0 with GCC 5.3.0 |
+| Go | go version go1.6.2 linux/amd64 |
+| PHP | PHP 7.0.7 (cli) (built |  May 25 2016 18 | 40 | 26) ( NTS ) |
+| Ruby | ruby 2.3.1p112 (2016-04-26 revision 54768) [x86_64-linux] |
+| Pypy | PyPy 5.1.1 with GCC 6.1.1 20160501 |
 | Python | Python 3.5.1 |
-| Perl | This is perl 5, version 22, subversion 1 (v5.22.1) built for x86_64-linux-thread-multi |
+| Perl | This is perl 5, version 22, subversion 2 (v5.22.2) built for x86_64-linux-thread-multi |
 | Bash | GNU bash, version 4.3.42(1)-release (x86_64-unknown-linux-gnu) |
 | Prolog | SWI-Prolog version 7.2.3 for x86_64-linux |
 | Erlang | Erlang (SMP,ASYNC_THREADS,HIPE) (BEAM) emulator version 7.3.1 |
@@ -118,7 +118,7 @@ repository which is well suitable for maintaining fresh versions of languages.
 | F# | F# Compiler for F# 4.0 (Open Source Edition) |
 | Haskell | The Glorious Glasgow Haskell Compilation System, version 7.10.3 |
 | Scheme | MIT/GNU Scheme microcode 15.3 |
-| Swift | Swift version 3.0-dev (LLVM 752e1430fc, Clang 1e6cba3ce3, Swift 56052cfe61) |
+| Swift | Swift version 3.0-dev (LLVM 8fcf602916, Clang cf0a734990, Swift 000d413a62) |
 
 ### Performance Tests
 
@@ -130,31 +130,32 @@ to construct tables and graphs.
     
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
-| C | 0.023s | 3.37% | 0.008s | 0.00% |
-| C++ | 0.024s | 0.00% | 0.008s | 0.00% |
-| Objective-C | 0.039s | 1.62% | 0.012s | 7.45% |
-| C# | 0.003s | 21.08% | 0.005s | 0.00% |
-| D | 0.023s | 2.75% | 0.008s | 0.00% |
-| Pascal | 0.022s | 3.52% | 0.008s | 5.59% |
-| Java | 0.005s | 8.94% | 0.004s | 0.00% |
-| Scala | 0.007s | 27.85% | 0.011s | 59.75% |
-| Lua | 0.453s | 3.51% | 0.080s | 3.31% |
-| JavaScript | 0.005s | 12.65% | 0.012s | 6.45% |
-| ActionScript3 | 0.036s | 1.76% | 0.239s | 1.44% |
-| PHP | 0.125s | 6.18% | 0.110s | 0.57% |
-| Ruby | 0.211s | 0.56% | 0.130s | 1.85% |
-| Pypy | 0.007s | 0.00% | 0.040s | 2.96% |
-| Python | 0.607s | 0.29% | 0.353s | 1.04% |
-| Perl | 0.477s | 3.44% | 0.691s | 0.82% |
-| Bash | 69.918s | 1.12% | 36.853s | 1.27% |
-| Prolog | 0.304s | 2.99% | 0.258s | 1.59% |
-| Erlang | 11.822s | 0.92% | 11.830s | 0.86% |
-| Common Lisp | 5.245s | 0.64% | 1.339s | 0.40% |
-| Clojure | 0.081s | 9.66% | 0.087s | 18.08% |
+| C# | 0.003s | 33.33% | 0.005s | 0.00% |
+| Java | 0.005s | 12.65% | 0.003s | 29.81% |
+| Go | 0.003s | 33.33% | 0.006s | 14.91% |
+| Scala | 0.009s | 69.39% | 0.008s | 30.62% |
+| JavaScript | 0.005s | 17.89% | 0.012s | 9.13% |
 | F# | 0.023s | 3.89% | 0.004s | 0.00% |
-| Haskell | 6.584s | 1.98% | 1.738s | 6.69% |
-| Scheme | 3.754s | 2.17% | 1.253s | 9.92% |
-| Swift | 0.023s | 2.75% | 0.008s | 5.59% |
+| Pascal | 0.022s | 4.98% | 0.007s | 12.78% |
+| D | 0.023s | 0.00% | 0.007s | 11.07% |
+| C | 0.023s | 2.75% | 0.008s | 0.00% |
+| C++ | 0.024s | 1.86% | 0.008s | 0.00% |
+| Swift | 0.024s | 9.86% | 0.008s | 7.91% |
+| Objective-C | 0.039s | 1.62% | 0.012s | 6.45% |
+| Pypy | 0.007s | 12.78% | 0.051s | 15.16% |
+| Clojure | 0.069s | 7.19% | 0.079s | 14.31% |
+| PHP | 0.137s | 13.15% | 0.123s | 3.65% |
+| ActionScript3 | 0.041s | 6.07% | 0.298s | 12.80% |
+| Ruby | 0.215s | 0.88% | 0.140s | 7.78% |
+| Lua | 0.468s | 5.45% | 0.082s | 3.45% |
+| Prolog | 0.301s | 0.83% | 0.258s | 1.52% |
+| Python | 0.738s | 12.98% | 0.452s | 12.97% |
+| Perl | 0.516s | 5.16% | 0.824s | 7.07% |
+| Scheme | 3.567s | 0.78% | 1.121s | 0.39% |
+| Common Lisp | 5.090s | 0.37% | 1.303s | 0.56% |
+| Haskell | 6.274s | 2.19% | 1.611s | 1.79% |
+| Erlang | 11.336s | 0.59% | 11.102s | 0.25% |
+| Bash | 71.177s | 3.85% | 36.944s | 3.22% |
 
 ![Bar graph results 1](results/bar_graph1.png)
 
@@ -164,31 +165,32 @@ to construct tables and graphs.
     
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
-| C | 0.237s | 3.37% | 0.258s | 2.47% |
-| C++ | 0.239s | 1.39% | 0.256s | 1.61% |
-| Objective-C | 0.405s | 3.02% | 0.408s | 2.75% |
-| C# | 0.036s | 6.33% | 0.179s | 11.09% |
-| D | 0.242s | 5.10% | 0.273s | 4.90% |
-| Pascal | 0.233s | 2.05% | 0.273s | 14.57% |
-| Java | 0.039s | 12.67% | 0.104s | 0.86% |
-| Scala | 0.042s | 21.05% | 0.109s | 20.57% |
-| Lua | 4.663s | 6.23% | 2.553s | 1.09% |
-| JavaScript | 0.051s | 5.75% | 0.381s | 2.88% |
-| ActionScript3 | 0.373s | 2.00% | 7.817s | 0.69% |
-| PHP | 1.290s | 5.26% | 3.676s | 0.40% |
-| Ruby | 2.162s | 0.57% | 4.279s | 0.48% |
-| Pypy | 0.067s | 0.67% | 0.259s | 4.38% |
-| Python | 6.321s | 1.06% | 11.726s | 1.10% |
-| Perl | 4.874s | 2.02% | 23.449s | 3.12% |
+| Scala | 0.037s | 3.20% | 0.097s | 5.98% |
+| Java | 0.041s | 6.17% | 0.105s | 0.95% |
+| Go | 0.034s | 2.28% | 0.167s | 0.54% |
+| C# | 0.035s | 6.52% | 0.168s | 1.16% |
+| Pypy | 0.066s | 0.68% | 0.246s | 2.49% |
+| F# | 0.255s | 6.51% | 0.131s | 7.98% |
+| JavaScript | 0.050s | 3.69% | 0.379s | 0.50% |
+| Pascal | 0.230s | 0.39% | 0.242s | 0.67% |
+| C | 0.232s | 0.55% | 0.250s | 0.62% |
+| C++ | 0.238s | 1.11% | 0.250s | 0.59% |
+| D | 0.234s | 0.38% | 0.259s | 0.42% |
+| Swift | 0.241s | 5.37% | 0.279s | 6.19% |
+| Objective-C | 0.393s | 0.23% | 0.401s | 0.88% |
+| Clojure | 0.339s | 35.63% | 0.779s | 33.08% |
+| PHP | 1.216s | 0.65% | 3.696s | 1.28% |
+| Ruby | 2.125s | 0.45% | 4.193s | 0.74% |
+| Lua | 4.437s | 4.33% | 2.476s | 2.37% |
+| ActionScript3 | 0.366s | 0.73% | 7.679s | 1.55% |
+| Prolog | 3.051s | 1.61% | 8.607s | 0.31% |
+| Python | 6.182s | 0.75% | 11.394s | 1.16% |
+| Perl | 4.602s | 0.61% | 22.569s | 0.33% |
+| Scheme | 38.516s | 3.59% | 38.337s | 1.28% |
+| Common Lisp | 53.757s | 1.88% | 43.513s | 1.92% |
 | Bash | Dead | Dead | Dead | Dead |
-| Prolog | 3.100s | 1.58% | 8.854s | 0.75% |
 | Erlang | Dead | Dead | Dead | Dead |
-| Common Lisp | 56.513s | 3.82% | 47.276s | 3.81% |
-| Clojure | 0.516s | 4.20% | 0.834s | 10.43% |
-| F# | 0.245s | 10.34% | 0.127s | 14.20% |
 | Haskell | Dead | Dead | Dead | Dead |
-| Scheme | 38.110s | 1.83% | 39.408s | 5.48% |
-| Swift | 0.242s | 9.39% | 0.295s | 9.10% |
 
 ![Bar graph results 2](results/bar_graph2.png)
 
@@ -198,31 +200,32 @@ to construct tables and graphs.
     
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
-| C | 2.417s | 0.43% | 8.515s | 0.58% |
-| C++ | 2.470s | 0.89% | 8.346s | 1.01% |
-| Objective-C | 4.047s | 0.32% | 13.642s | 1.37% |
-| C# | 0.363s | 7.05% | 5.922s | 3.16% |
-| D | 2.451s | 0.37% | 8.623s | 0.87% |
-| Pascal | 2.423s | 1.84% | 8.302s | 2.97% |
-| Java | 0.368s | 3.51% | 3.116s | 4.42% |
-| Scala | 0.386s | 7.60% | 3.115s | 4.79% |
+| Scala | 0.455s | 17.25% | 4.290s | 18.25% |
+| Java | 0.490s | 10.01% | 4.689s | 15.53% |
+| C# | 0.334s | 3.06% | 5.776s | 6.83% |
+| Go | 0.357s | 1.46% | 5.958s | 0.70% |
+| F# | 2.634s | 3.76% | 4.459s | 4.78% |
+| Pascal | 2.352s | 2.39% | 8.204s | 5.01% |
+| C | 2.377s | 2.64% | 8.473s | 4.10% |
+| C++ | 2.432s | 1.87% | 8.472s | 4.12% |
+| D | 2.427s | 2.24% | 8.600s | 2.32% |
+| Swift | 2.428s | 1.29% | 9.850s | 5.16% |
+| JavaScript | 0.546s | 1.75% | 13.225s | 1.33% |
+| Objective-C | 4.018s | 2.34% | 13.214s | 2.65% |
+| Pypy | 0.698s | 2.69% | 18.794s | 10.12% |
+| Clojure | 4.410s | 39.09% | 30.696s | 24.79% |
 | Lua | Dead | Dead | Dead | Dead |
-| JavaScript | 0.529s | 2.47% | 12.686s | 1.19% |
 | ActionScript3 | Dead | Dead | Dead | Dead |
 | PHP | Dead | Dead | Dead | Dead |
 | Ruby | Dead | Dead | Dead | Dead |
-| Pypy | 0.699s | 2.63% | 17.428s | 8.40% |
 | Python | Dead | Dead | Dead | Dead |
 | Perl | Dead | Dead | Dead | Dead |
 | Bash | Dead | Dead | Dead | Dead |
 | Prolog | Dead | Dead | Dead | Dead |
 | Erlang | Dead | Dead | Dead | Dead |
 | Common Lisp | Dead | Dead | Dead | Dead |
-| Clojure | 3.684s | 37.55% | 31.387s | 42.02% |
-| F# | 2.405s | 1.34% | 3.992s | 3.41% |
 | Haskell | Dead | Dead | Dead | Dead |
 | Scheme | Dead | Dead | Dead | Dead |
-| Swift | 2.384s | 1.09% | 9.159s | 2.48% |
 
 ![Bar graph results 3](results/bar_graph3.png)
 
@@ -232,20 +235,23 @@ to construct tables and graphs.
     
 | Lang | Avg. cycles | Std. cycles | Avg. hanoi | Std. hanoi |
 | :-----: | :-----: | :-----: | :-----: | :-----: |
-| C | 5.162s | 1.80% | 33.340s | 1.25% |
-| C++ | 5.264s | 1.77% | 33.666s | 2.30% |
-| Objective-C | 8.634s | 0.25% | 52.900s | 0.45% |
-| C# | 0.723s | 1.63% | 22.250s | 0.47% |
-| D | 5.191s | 0.13% | 33.853s | 0.35% |
-| Pascal | 5.096s | 0.41% | 32.315s | 0.45% |
-| Java | 0.804s | 6.80% | 11.835s | 1.14% |
-| Scala | 0.755s | 2.12% | 11.678s | 1.05% |
+| Scala | 0.783s | 4.30% | 13.863s | 9.66% |
+| Java | 0.834s | 2.59% | 14.179s | 3.56% |
+| F# | 5.206s | 2.53% | 16.583s | 5.85% |
+| C# | 0.710s | 0.44% | 21.859s | 3.22% |
+| Go | 0.761s | 3.68% | 24.921s | 2.65% |
+| C++ | 5.346s | 0.87% | 35.498s | 2.65% |
+| D | 5.400s | 1.64% | 35.456s | 3.64% |
+| Pascal | 5.329s | 1.03% | 36.235s | 2.40% |
+| C | 5.275s | 0.82% | 36.312s | 2.69% |
+| Swift | 5.177s | 4.57% | 37.737s | 4.17% |
+| JavaScript | 1.203s | 6.14% | 55.168s | 5.43% |
+| Pypy | 1.484s | 5.09% | 62.439s | 12.42% |
+| Objective-C | 8.734s | 0.66% | 58.495s | 2.22% |
 | Lua | Dead | Dead | Dead | Dead |
-| JavaScript | 1.184s | 14.48% | 50.665s | 3.86% |
 | ActionScript3 | Dead | Dead | Dead | Dead |
 | PHP | Dead | Dead | Dead | Dead |
 | Ruby | Dead | Dead | Dead | Dead |
-| Pypy | 1.501s | 3.38% | 52.912s | 1.63% |
 | Python | Dead | Dead | Dead | Dead |
 | Perl | Dead | Dead | Dead | Dead |
 | Bash | Dead | Dead | Dead | Dead |
@@ -253,10 +259,8 @@ to construct tables and graphs.
 | Erlang | Dead | Dead | Dead | Dead |
 | Common Lisp | Dead | Dead | Dead | Dead |
 | Clojure | Dead | Dead | Dead | Dead |
-| F# | 5.200s | 0.73% | 15.846s | 1.49% |
 | Haskell | Dead | Dead | Dead | Dead |
 | Scheme | Dead | Dead | Dead | Dead |
-| Swift | 5.366s | 4.06% | 43.269s | 12.13% |
 
 ![Bar graph results 4](results/bar_graph4.png)
 

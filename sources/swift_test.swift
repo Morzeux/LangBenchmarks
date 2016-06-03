@@ -6,7 +6,7 @@ func getTime(value: Double, round: Int) -> String {
     fmt.minimumFractionDigits = round
     fmt.minimumIntegerDigits = 1
 
-    return fmt.stringFromNumber(NSNumber(double: NSDate().timeIntervalSince1970 - value))!
+    return fmt.stringFromNumber(NSNumber(value: NSDate().timeIntervalSince1970 - value))!
 }
 
 func hanoi(n: Int, start: Int, end: Int,  sticks: Int) -> Void {

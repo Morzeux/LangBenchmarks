@@ -138,6 +138,12 @@ class Evaluator(object):
                 print(lang.compile())
         print('')
 
+    def compare_time_result(value):
+        if value[-1]:
+            return value[-1]['avg_cycle'] + value[-1]['avg_hanoi']
+        else:
+            return value[0]
+
     @classmethod
     def test_languages(cls, languages, tests, average=1, timeout=None):
         """ Evaluates languages. """
@@ -156,22 +162,33 @@ class Evaluator(object):
             results.append({'disks': test[0], 'sticks': test[1],
                             'iters': test[2], 'results': []})
 
+            skips = []
             for lang in languages:
                 if lang.is_skipped():
-                    results[-1]['results'].append((lang.name, {}))
+                    skips.append((lang.name, {}))
+                    # results[-1]['results'].append((lang.name, {}))
                 elif lang.is_available():
                     output = []
                     for _ in range(average):
                         output.append(lang.evaluate(params, timeout))
                         if output[-1] is None:
-                            results[-1]['results'].append((lang.name, {}))
+                            # results[-1]['results'].append((lang.name, {}))
+                            skips.append((lang.name, {}))
                             lang.skip = True
                             print(bad_output % lang.name)
                             break
                     else:
                         print(cls._format_output(output,
                                                  results[-1]['results']))
+
+            results[-1]['results'] = sorted(
+                results[-1]['results'],
+                key=lambda x: x[-1]['avg_cycle'] + x[-1]['avg_hanoi']
+            )
+
+            results[-1]['results'] += skips
             print('')
+
         return results
 
     @classmethod
